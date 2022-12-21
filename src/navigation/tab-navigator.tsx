@@ -7,7 +7,7 @@ import type { SvgProps } from 'react-native-svg';
 
 import { Dashboard, Domains, Wallet } from '@/screens';
 import { Settings as SettingsIcon, Style as DashboardIcon } from '@/ui';
-import colors from '@/ui/theme/colors';
+import { colors } from '@/ui/theme/colors';
 
 type TabParamList = {
   Dashboard: undefined;
@@ -81,14 +81,14 @@ export const TabNavigator = () => {
       screenOptions={({ route }) => ({
         // eslint-disable-next-line react/no-unstable-nested-components
         tabBarIcon: ({ color }) => <BarIcon name={route.name} color={color} />,
-        tabBarInactiveBackgroundColor: colors.base[900],
-        tabBarActiveTintColor: colors.text[400],
-        tabBarInactiveTintColor: colors.text[900],
+        tabBarInactiveBackgroundColor: colors.bg[900],
+        tabBarActiveTintColor: colors.text,
+        tabBarInactiveTintColor: colors.muted,
         tabBarStyle: [
           {
-            backgroundColor: colors.base[900],
+            backgroundColor: colors.bg[900],
             borderTopWidth: 1,
-            borderTopColor: colors.border[500],
+            borderTopColor: colors.border.light,
             height: 90,
           },
         ],

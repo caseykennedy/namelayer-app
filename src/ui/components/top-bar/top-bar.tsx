@@ -1,52 +1,54 @@
-import { Container, Row, SafeAreaView, Text, View } from 'dripsy';
+import { Container, Pressable, Row, SafeAreaView, Text } from 'dripsy';
 import * as React from 'react';
 
-import { Pill } from '../';
+import { Tube } from '@/ui/icons';
+import { theme } from '@/ui/theme/dripsy';
 
-const Avatar = () => (
-  <View
-    sx={{
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: 28,
-      width: 28,
-      ml: 'xs',
-      backgroundColor: 'gold.500',
-      borderWidth: 1,
-      borderColor: 'gold.500',
-      borderRadius: 'sm',
-    }}
-  >
-    <Text sx={{ color: 'black', fontWeight: 600 }}>ck</Text>
-  </View>
-);
+import { Avatar, Pill } from '../';
 
-export const TopBar = () => (
-  <SafeAreaView>
-    <Container
-      sx={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        p: 'gutter',
-        pt: 'sm',
-      }}
-    >
-      <Row>
-        {/* <Pill>BLOCK: 987345</Pill> */}
-        <Pill>Synchronized</Pill>
-      </Row>
-      <Row
+export const TopBar = () => {
+  // const navigation = useNavigation();
+  return (
+    <SafeAreaView>
+      <Container
         sx={{
+          flexDirection: 'row',
           alignItems: 'center',
-          justifyContent: 'flex-end',
+          justifyContent: 'space-between',
+          p: 'gutter',
+          pt: 'sm',
         }}
       >
-        <Text variant="body" sx={{ color: 'muted' }}>
-          Primary Wallet
-        </Text>
-        <Avatar />
-      </Row>
-    </Container>
-  </SafeAreaView>
-);
+        <Row>
+          {/* <Pill>BLOCK: 987345</Pill> */}
+          <SyncStatus />
+        </Row>
+        <Pressable onPress={() => {}}>
+          <Row
+            sx={{
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+            }}
+          >
+            <Text variant="body" sx={{ color: 'muted', mr: 'xs' }}>
+              Primary Wallet
+            </Text>
+            <Avatar />
+          </Row>
+        </Pressable>
+      </Container>
+    </SafeAreaView>
+  );
+};
+
+const SyncStatus = () => {
+  const color = theme.colors.aqua[500];
+  return (
+    <Pill borderColor={color}>
+      <Tube color={color} />
+      <Text variants={['mono', 'xxs']} sx={{ color: color, ml: 'xxs' }}>
+        Synced
+      </Text>
+    </Pill>
+  );
+};

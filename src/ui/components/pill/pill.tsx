@@ -1,11 +1,12 @@
-import { Row, Text } from 'dripsy';
+import { Row } from 'dripsy';
 import * as React from 'react';
 
 type Props = {
+  borderColor?: string;
   children: React.ReactNode;
 };
 
-export const Pill = ({ children }: Props) => {
+export const Pill = ({ borderColor = 'border', children }: Props) => {
   return (
     <Row
       sx={{
@@ -15,11 +16,11 @@ export const Pill = ({ children }: Props) => {
         py: 'xxs',
         backgroundColor: 'transparent',
         borderWidth: 1,
-        borderColor: 'border',
+        borderColor,
         borderRadius: 'sm',
       }}
     >
-      <Text variants={['mono', 'xxs']}>{children}</Text>
+      {children}
     </Row>
   );
 };

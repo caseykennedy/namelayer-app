@@ -1,6 +1,8 @@
 import { Row, Text, View } from 'dripsy';
 import * as React from 'react';
 
+import { Handshake, Lock } from '../../icons';
+
 // type Props = {
 //   children: React.ReactNode;
 // };
@@ -9,8 +11,8 @@ export const WalletSupply = () => {
   return (
     <View
       sx={{
-        borderBottomWidth: 1,
-        borderColor: 'border',
+        borderBottomWidth: 2,
+        borderColor: 'border.light',
         p: 'gutter',
         pt: 'xl',
       }}
@@ -31,23 +33,24 @@ export const WalletSupply = () => {
         >
           <View
             sx={{
+              alignItems: 'center',
               justifyContent: 'center',
               mr: 'xxs',
-              height: 24,
-              width: 24,
+              height: 26,
+              width: 26,
               borderRadius: 'full',
               borderColor: 'muted',
               borderWidth: 1,
             }}
           >
-            <Text variants={['sm', 'bold', 'centered']}>H</Text>
+            <Handshake />
           </View>
           <Row
             sx={{
               justifyContent: 'center',
             }}
           >
-            <Text variant="lg">HNS</Text>
+            <Text variants={['lg', 'bold']}>HNS</Text>
           </Row>
         </Row>
       </Row>
@@ -56,14 +59,20 @@ export const WalletSupply = () => {
         sx={{
           alignItems: 'center',
           justifyContent: 'space-between',
+          mt: 'xxs',
         }}
       >
         <View>
           <Text sx={{ color: 'muted' }}>$1,056.72</Text>
         </View>
-        <View>
-          <Text sx={{ color: 'muted' }}>273.25</Text>
-        </View>
+        <Row
+          sx={{
+            alignItems: 'center',
+          }}
+        >
+          <Lock />
+          <Text sx={{ color: 'muted', ml: 'xxs' }}>273.25</Text>
+        </Row>
       </Row>
     </View>
   );

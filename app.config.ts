@@ -26,6 +26,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     supportsTablet: true,
     bundleIdentifier: Config.scheme,
+    // jsEngine: 'hermes',
   },
   android: {
     adaptiveIcon: {

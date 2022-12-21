@@ -1,8 +1,11 @@
+export * from './arrow';
 export * from './arrow-right';
 export * from './feed';
 export * from './github';
+export * from './handshake';
 export * from './home';
 export * from './language';
+export * from './lock';
 export * from './menu';
 export * from './no-data';
 export * from './rate';
@@ -10,4 +13,5 @@ export * from './settings';
 export * from './share';
 export * from './style';
 export * from './support';
+export * from './tube';
 export * from './website';
