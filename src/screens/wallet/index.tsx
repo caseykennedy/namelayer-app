@@ -1,14 +1,20 @@
+import { ScrollView, Text, View } from 'dripsy';
 import React from 'react';
-
-import { ScrollView, Text, View } from '@/ui';
 
 export const Wallet = () => {
   return (
-    <ScrollView className="bg-base-800">
-      <View className="flex-1 px-4 pt-16">
-        <Text variant="lg" className="font-bold">
-          Wallet
-        </Text>
+    <ScrollView
+      sx={{
+        backgroundColor: 'bg.900',
+      }}
+    >
+      <View
+        sx={{
+          flex: 1,
+          pt: 'xxl',
+        }}
+      >
+        <Text variants={['lg', 'medium', 'centered']}>Wallet</Text>
       </View>
     </ScrollView>
   );

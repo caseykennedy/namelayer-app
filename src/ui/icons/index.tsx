@@ -1,5 +1,6 @@
 export * from './arrow';
-export * from './arrow-right';
+export * from './chevron';
+export * from './copy';
 export * from './feed';
 export * from './github';
 export * from './handshake';
@@ -8,6 +9,7 @@ export * from './language';
 export * from './lock';
 export * from './menu';
 export * from './no-data';
+export * from './plus';
 export * from './rate';
 export * from './settings';
 export * from './share';

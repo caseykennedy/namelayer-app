@@ -11,7 +11,7 @@ export const WalletSupply = () => {
   return (
     <View
       sx={{
-        borderBottomWidth: 2,
+        borderBottomWidth: 1,
         borderColor: 'border.light',
         p: 'gutter',
         pt: 'xl',

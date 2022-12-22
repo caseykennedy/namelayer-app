@@ -1,6 +1,3 @@
-import { styled } from 'nativewind';
-import { ScrollView as NScrollView } from 'react-native';
+import { ScrollView as DScrollView } from 'dripsy';
 
-export const ScrollView = styled(NScrollView, {
-  classProps: ['contentContainerStyle', 'className'],
-});
+export const ScrollView = DScrollView;

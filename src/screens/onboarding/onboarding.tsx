@@ -1,43 +1,30 @@
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView, View } from 'dripsy';
 import React from 'react';
+import { Button } from 'react-native';
 
 import { useIsFirstTime } from '@/core/hooks';
-import { Button, Image, SafeAreaView, Text, View } from '@/ui';
 export const Onboarding = () => {
+  const nav = useNavigation();
   // TODO: disable this rule for vars with underscore
   // eslint-disable-next-line unused-imports/no-unused-vars
   const [_, setIsFirstTime] = useIsFirstTime();
   return (
-    <View className="flex h-full items-center  justify-center bg-white">
-      <Image className="w-full flex-1" source={require('./cover.png')} />
-
-      <View className="justify-end ">
-        <Text className="my-3 text-5xl font-bold text-center">
-          Obytes Starter
-        </Text>
-        <Text className="mb-2 text-lg text-center text-gray-600">
-          The right way to build your mobile app
-        </Text>
-
-        <Text className="my-1 text-left text-lg pt-6">
-          🚀 Production-ready{' '}
-        </Text>
-        <Text className="my-1 text-left text-lg">
-          🥷 Developer experience + Productivity
-        </Text>
-        <Text className="my-1 text-left text-lg">
-          🧩 Minimal code and dependencies
-        </Text>
-        <Text className="my-1 text-left text-lg">
-          💪 well maintained third-party libraries
-        </Text>
-      </View>
-      <SafeAreaView className="mt-6">
-        <Button
+    <View
+      sx={{
+        flex: 1,
+        backgroundColor: 'bg.900',
+      }}
+    >
+      <SafeAreaView>
+        {/* <Button
           label="Let's Get Started "
           onPress={() => {
             setIsFirstTime(false);
           }}
-        />
+        /> */}
+        <Button onPress={() => nav.goBack()} title="Dismiss" />
+        <Button onPress={() => nav.navigate('ConfirmTx')} title="Confirm TX" />
       </SafeAreaView>
     </View>
   );

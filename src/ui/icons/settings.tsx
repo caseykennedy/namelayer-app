@@ -2,11 +2,17 @@ import * as React from 'react';
 import type { SvgProps } from 'react-native-svg';
 import Svg, { Path } from 'react-native-svg';
 
+import { theme } from '../theme';
+
 interface Props extends SvgProps {
   size?: number;
 }
 
-export const Settings = ({ color = '#E9E8EA', size = 24, ...props }: Props) => {
+export const Settings = ({
+  color = theme.colors.muted,
+  size = 24,
+  ...props
+}: Props) => {
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" {...props}>
       <Path

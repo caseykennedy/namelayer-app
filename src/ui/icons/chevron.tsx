@@ -5,11 +5,17 @@ import Svg, { Path } from 'react-native-svg';
 
 import { isRTL } from '@/core';
 
-export const ArrowRight = ({ color = '#CCC', style, ...props }: SvgProps) => (
+import { theme } from '../theme';
+
+export const Chevron = ({
+  color = theme.colors.muted,
+  style,
+  ...props
+}: SvgProps) => (
   <Svg
-    width={7}
-    height={14}
-    viewBox="0 0 7 14"
+    width={9}
+    height={16}
+    viewBox="0 0 9 16"
     fill="none"
     {...props}
     style={StyleSheet.flatten([
@@ -18,8 +24,10 @@ export const ArrowRight = ({ color = '#CCC', style, ...props }: SvgProps) => (
     ])}
   >
     <Path
-      d="M.872 13.101a.874.874 0 0 0 .621-.253l5.252-5.253a.875.875 0 0 0 0-1.234L1.493 1.11A.875.875 0 0 0 .26 2.343l4.63 4.63-4.63 4.632A.876.876 0 0 0 .872 13.1Z"
-      fill={color}
+      d="M1 1L7.29289 7.29289C7.68342 7.68342 7.68342 8.31658 7.29289 8.70711L1 15"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
     />
   </Svg>
 );

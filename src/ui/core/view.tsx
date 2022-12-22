@@ -1,5 +1,4 @@
-import { styled } from 'nativewind';
-import { SafeAreaView as NSafeAreaView, View as RNView } from 'react-native';
+import { SafeAreaView as NSafeAreaView, View as RNView } from 'dripsy';
 
-export const View = styled(RNView);
-export const SafeAreaView = styled(NSafeAreaView);
+export const View = RNView;
+export const SafeAreaView = NSafeAreaView;

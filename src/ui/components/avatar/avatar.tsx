@@ -12,12 +12,14 @@ export const Avatar = ({ size = 28 }: Props) => (
       justifyContent: 'center',
       height: size,
       width: size,
-      backgroundColor: 'gold.500',
+      backgroundColor: 'bg.100',
       borderWidth: 1,
-      borderColor: 'gold.500',
+      borderColor: 'border.dark',
       borderRadius: 'sm',
     }}
   >
-    <Text sx={{ color: 'black', fontWeight: 600 }}>ck</Text>
+    <Text variants={['sm', 'bold']} sx={{ color: 'bg.900' }}>
+      c
+    </Text>
   </View>
 );

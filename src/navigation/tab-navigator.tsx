@@ -6,7 +6,7 @@ import * as React from 'react';
 import type { SvgProps } from 'react-native-svg';
 
 import { Dashboard, Domains, Wallet } from '@/screens';
-import { Settings as SettingsIcon, Style as DashboardIcon } from '@/ui';
+import { Settings as SettingsIcon, Style as DashboardIcon, theme } from '@/ui';
 import { colors } from '@/ui/theme/colors';
 
 type TabParamList = {
@@ -100,7 +100,7 @@ export const TabNavigator = () => {
     >
       <Tab.Group
         screenOptions={{
-          headerShown: false,
+          headerShown: true,
         }}
       >
         {tabs.map(({ name, component, label }) => {
@@ -109,9 +109,21 @@ export const TabNavigator = () => {
               key={name}
               name={name}
               component={component}
-              options={{
+              options={() => ({
                 title: label,
-              }}
+                headerStyle: {
+                  backgroundColor: theme.colors.bg[900],
+                  borderBottomWidth: 0,
+                  borderColor: theme.colors.border.dark,
+                },
+                headerShadowVisible: false, // applied here
+                // headerBackTitleVisible: false,
+                headerTintColor: theme.colors.aqua[500],
+                headerTitleStyle: {
+                  fontSize: theme.fontSizes.sm,
+                  fontWeight: 'bold',
+                },
+              })}
             />
           );
         })}

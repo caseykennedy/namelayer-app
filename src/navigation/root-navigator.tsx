@@ -9,8 +9,9 @@ import { Onboarding } from '@/screens';
 import { AuthNavigator } from './auth-navigator';
 import { DrawerNavigator } from './drawer-navigator';
 import { NavigationContainer } from './navigation-container';
+import { TxNavigator } from './tx-navigator';
 
-const Stack = createNativeStackNavigator();
+const RootStack = createNativeStackNavigator();
 
 export const Root = () => {
   const status = useAuth((state) => state.status);
@@ -25,7 +26,7 @@ export const Root = () => {
   }, [hideSplash, status]);
 
   return (
-    <Stack.Navigator
+    <RootStack.Navigator
       screenOptions={{
         headerShown: false,
         gestureEnabled: false,
@@ -33,17 +34,20 @@ export const Root = () => {
       }}
     >
       {isFirstTime ? (
-        <Stack.Screen name="Onboarding" component={Onboarding} />
+        <RootStack.Screen name="Onboarding" component={Onboarding} />
       ) : (
-        <Stack.Group>
+        <RootStack.Group>
           {status !== 'signOut' ? (
-            <Stack.Screen name="Auth" component={AuthNavigator} />
+            <RootStack.Screen name="Auth" component={AuthNavigator} />
           ) : (
-            <Stack.Screen name="App" component={DrawerNavigator} />
+            <RootStack.Screen name="App" component={DrawerNavigator} />
           )}
-        </Stack.Group>
+        </RootStack.Group>
       )}
-    </Stack.Navigator>
+      <RootStack.Group screenOptions={{ presentation: 'modal' }}>
+        <RootStack.Screen name="TxStack" component={TxNavigator} />
+      </RootStack.Group>
+    </RootStack.Navigator>
   );
 };
 

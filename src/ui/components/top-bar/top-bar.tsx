@@ -23,19 +23,7 @@ export const TopBar = () => {
           {/* <Pill>BLOCK: 987345</Pill> */}
           <SyncStatus />
         </Row>
-        <Pressable onPress={() => {}}>
-          <Row
-            sx={{
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-            }}
-          >
-            <Text variant="body" sx={{ color: 'muted', mr: 'xs' }}>
-              Primary Wallet
-            </Text>
-            <Avatar />
-          </Row>
-        </Pressable>
+        <Wallet />
       </Container>
     </SafeAreaView>
   );
@@ -50,5 +38,23 @@ const SyncStatus = () => {
         Synced
       </Text>
     </Pill>
+  );
+};
+
+const Wallet = () => {
+  return (
+    <Pressable onPress={() => {}}>
+      <Row
+        sx={{
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+        }}
+      >
+        <Text variant="body" sx={{ color: 'muted', mr: 'xs' }}>
+          Primary Wallet
+        </Text>
+        <Avatar />
+      </Row>
+    </Pressable>
   );
 };

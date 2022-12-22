@@ -7,13 +7,19 @@ import { Config } from './config/config.js';
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
+  extra: {
+    eas: {
+      projectId: 'f984bc68-74b4-43ba-8aae-5722eedc1abd',
+    },
+  },
   name: Config.name,
   description: `${Config.name} Mobile App`,
-  slug: 'obytesapp',
+  slug: 'namelayer',
   version: Config.version.toString(),
   orientation: 'portrait',
   icon: Config.icon,
   userInterfaceStyle: 'dark',
+  jsEngine: 'hermes',
   splash: {
     image: './assets/splash.png',
     resizeMode: 'cover',
@@ -26,7 +32,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     supportsTablet: true,
     bundleIdentifier: Config.scheme,
-    // jsEngine: 'hermes',
+    jsEngine: 'hermes',
   },
   android: {
     adaptiveIcon: {
@@ -34,6 +40,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       backgroundColor: '#000000',
     },
     package: Config.scheme,
+    jsEngine: 'hermes',
   },
   web: {
     favicon: './assets/favicon.png',
