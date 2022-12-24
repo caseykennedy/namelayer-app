@@ -1,7 +1,7 @@
 import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
 import { useBottomSheet } from '@gorhom/bottom-sheet';
+import { Pressable } from 'dripsy';
 import React from 'react';
-import { Pressable } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);

@@ -4,7 +4,7 @@ import { Pressable, Row, Text, View } from 'dripsy';
 // import * as Clipboard from 'expo-clipboard';
 import React from 'react';
 
-import { Avatar } from '@/ui';
+import { Avatar } from '@/ui/components';
 import { Chevron, Copy as CopyIcon, Plus, Settings } from '@/ui/icons';
 // import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 // import Ionicons from 'react-native-vector-icons/Ionicons';

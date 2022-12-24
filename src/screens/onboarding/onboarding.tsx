@@ -4,6 +4,7 @@ import React from 'react';
 import { Button } from 'react-native';
 
 import { useIsFirstTime } from '@/core/hooks';
+
 export const Onboarding = () => {
   const nav = useNavigation();
   // TODO: disable this rule for vars with underscore

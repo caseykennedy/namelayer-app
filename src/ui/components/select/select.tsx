@@ -1,9 +1,8 @@
 import type { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { Text, View } from 'dripsy';
 import * as React from 'react';
+import { TouchableOpacity } from 'react-native';
 
-import { Text } from '../text';
-import { TouchableOpacity } from '../touchable-opacity';
-import { View } from '../view';
 import { Arrow } from './icons';
 import type { Option } from './options';
 import { Options } from './options';
@@ -40,9 +39,9 @@ export const Select = (props: SelectProps) => {
     [close, onSelect]
   );
 
-  const borderColor = error ? 'border-danger-600' : 'border-neutral-400';
+  // const borderColor = error ? 'border-danger-600' : 'border-neutral-400';
 
-  const bgColor = error ? 'bg-danger-50' : 'bg-neutral-200';
+  // const bgColor = error ? 'bg-danger-50' : 'bg-neutral-200';
 
   const textValue =
     value !== undefined
@@ -50,24 +49,22 @@ export const Select = (props: SelectProps) => {
       : placeholder;
   return (
     <>
-      <View className="mb-4">
+      <View>
         {label && (
           <Text
             variant="md"
-            className={error ? 'text-danger-600' : 'text-black'}
+            // className={error ? 'text-danger-600' : 'text-black'}
           >
             {label}
           </Text>
         )}
         <TouchableOpacity
-          className={`mt-0 flex-row items-center justify-center border-[1px] py-3 px-2  ${borderColor} rounded-md ${bgColor} text-[16px]`}
+          // className={`mt-0 flex-row items-center justify-center border-[1px] py-3 px-2  ${borderColor} rounded-md ${bgColor} text-[16px]`}
           disabled={disabled}
           onPress={open}
         >
-          <View className="flex-1">
-            <Text variant="md" className="text-neutral-600">
-              {textValue}
-            </Text>
+          <View sx={{ flex: 1 }}>
+            <Text variant="md">{textValue}</Text>
           </View>
           <Arrow />
         </TouchableOpacity>

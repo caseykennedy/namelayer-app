@@ -1,9 +1,9 @@
 import Config from '@config';
+import { ScrollView, Text, View } from 'dripsy';
 import * as React from 'react';
 
 import { useAuth } from '@/core';
 import { translate } from '@/core';
-import { ScrollView, Text, View } from '@/ui';
 import { Github, Rate, Share, Support, Website } from '@/ui/icons';
 
 import { Item } from './item';
@@ -11,14 +11,12 @@ import { ItemsContainer } from './items-container';
 import { LanguageItem } from './language-item';
 import { ThemeItem } from './theme-item';
 
-export const Settings = () => {
+export const Settings = (props: any) => {
   const { signOut } = useAuth();
   return (
-    <ScrollView className="bg-base-700">
-      <View className="flex-1 px-4 pt-16">
-        <Text variant="lg" className="font-bold">
-          {translate('settings.title')}
-        </Text>
+    <ScrollView {...props}>
+      <View>
+        <Text>{translate('settings.title')}</Text>
 
         <ItemsContainer title="settings.generale">
           <LanguageItem />
@@ -43,7 +41,7 @@ export const Settings = () => {
           <Item text="settings.website" icon={<Website />} onPress={() => {}} />
         </ItemsContainer>
 
-        <View className="my-8">
+        <View>
           <ItemsContainer>
             <Item text="settings.logout" onPress={signOut} />
           </ItemsContainer>

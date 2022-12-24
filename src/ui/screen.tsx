@@ -1,12 +1,17 @@
+import { View } from 'dripsy';
 import React from 'react';
-import { View } from 'react-native';
 
 type Props = {
   children: React.ReactNode;
 };
 
 export const Screen = ({ children }: Props) => (
-  <View className="flex flex-1 flex-col justify-center bg-white px-2">
+  <View
+    sx={{
+      flex: 1,
+      backgroundColor: 'bg.600',
+    }}
+  >
     {children}
   </View>
 );

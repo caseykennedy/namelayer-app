@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 
 import { useAuth } from '@/core';
 import { useIsFirstTime } from '@/core/hooks';
-import { Onboarding } from '@/screens';
+import { ConfirmTx, Onboarding } from '@/screens';
 
 import { AuthNavigator } from './auth-navigator';
 import { DrawerNavigator } from './drawer-navigator';
@@ -36,16 +36,32 @@ export const Root = () => {
       {isFirstTime ? (
         <RootStack.Screen name="Onboarding" component={Onboarding} />
       ) : (
-        <RootStack.Group>
-          {status !== 'signOut' ? (
-            <RootStack.Screen name="Auth" component={AuthNavigator} />
-          ) : (
-            <RootStack.Screen name="App" component={DrawerNavigator} />
-          )}
-        </RootStack.Group>
+        <>
+          <RootStack.Group>
+            {status !== 'signOut' ? (
+              <RootStack.Screen name="Auth" component={AuthNavigator} />
+            ) : (
+              <>
+                <RootStack.Screen name="App" component={DrawerNavigator} />
+              </>
+            )}
+          </RootStack.Group>
+
+          <RootStack.Group
+          // screenOptions={{
+          //   gestureEnabled: true,
+          // }}
+          >
+            <RootStack.Screen name="Tx" component={TxNavigator} />
+          </RootStack.Group>
+        </>
       )}
-      <RootStack.Group screenOptions={{ presentation: 'modal' }}>
-        <RootStack.Screen name="TxStack" component={TxNavigator} />
+      <RootStack.Group
+        screenOptions={{
+          presentation: 'modal',
+        }}
+      >
+        <RootStack.Screen name="ConfirmTx" component={ConfirmTx} />
       </RootStack.Group>
     </RootStack.Navigator>
   );

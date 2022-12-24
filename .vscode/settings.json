@@ -26,5 +26,8 @@
   "i18n-ally.disabled": false,
   "[svg]": {
     "editor.defaultFormatter": "jock.svg"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   } // make sure to disable i18n-ally in your global setting and only enable it for such projects
 }

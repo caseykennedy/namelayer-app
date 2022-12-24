@@ -1,6 +1,7 @@
 export * from './arrow';
 export * from './chevron';
 export * from './copy';
+export * from './domains';
 export * from './feed';
 export * from './github';
 export * from './handshake';
@@ -16,4 +17,5 @@ export * from './share';
 export * from './style';
 export * from './support';
 export * from './tube';
+export * from './wallet-icon';
 export * from './website';

@@ -1,92 +1,51 @@
 import { useNavigation } from '@react-navigation/native';
-import { Pressable, Row, ScrollView, Text, View } from 'dripsy';
-import React, { useEffect } from 'react';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Pressable, ScrollView, Text, View } from 'dripsy';
+import React from 'react';
 
+import type { RootStackParamList } from '@/navigation/types';
 import { Wallet } from '@/ui/components';
-import { Avatar, Pill } from '@/ui/components';
-import { Tube } from '@/ui/icons';
-import { theme } from '@/ui/theme/dripsy';
 
-export const Dashboard = (props: any) => {
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'ConfirmTx'>;
+
+export const Dashboard = ({ route, navigation }: ScreenProps) => {
   const nav = useNavigation();
 
-  useEffect(() => {
-    nav.setOptions({
-      // eslint-disable-next-line react/no-unstable-nested-components
-      headerTitle: () => <HeaderTitle />,
-      // eslint-disable-next-line react/no-unstable-nested-components
-      headerRight: () => <HeaderRight openDrawer={nav.openDrawer} />,
-      // eslint-disable-next-line react/no-unstable-nested-components
-      headerLeft: () => <HeaderLeft />,
-    });
-  });
+  console.log('ConfirmTxProps:', route, navigation);
 
   return (
-    <ScrollView sx={{ backgroundColor: 'bg.900' }} {...props}>
+    <ScrollView sx={{ flex: 1, backgroundColor: 'bg.800' }}>
       <Wallet />
       <View
         sx={{
+          flex: 1,
           backgroundColor: 'bg.600',
-          height: 150,
         }}
       >
-        <Pressable onPress={() => nav.navigate('TxStack')}>
-          <Text>Open Modal</Text>
+        <Pressable
+          onPress={() => nav.navigate('ConfirmTx')}
+          sx={{ px: 'gutter', py: 'lg' }}
+        >
+          <Text
+            variants={['md', 'medium', 'centered']}
+            sx={{
+              color: 'aqua.400',
+            }}
+          >
+            open confirm tx modal
+          </Text>
         </Pressable>
       </View>
-    </ScrollView>
-  );
-};
-
-type HeaderRightProps = {
-  openDrawer: () => void;
-};
-
-const HeaderTitle = () => {
-  return (
-    <Text variant="body" sx={{ color: 'muted', mr: 'xs' }}>
-      {' '}
-    </Text>
-  );
-};
-
-const HeaderRight = ({ openDrawer }: HeaderRightProps) => {
-  return (
-    <Pressable
-      onPress={openDrawer}
-      sx={{
-        pr: 'gutter',
-      }}
-    >
-      <Row
+      <View
         sx={{
-          alignItems: 'center',
-          justifyContent: 'flex-end',
+          flex: 1,
+          py: 'xl',
         }}
       >
-        <Text variant="body" sx={{ color: 'muted', mr: 'xs' }}>
-          Primary Wallet
+        <Text variants={['md', 'centered']} sx={{ color: 'muted' }}>
+          transaction history
         </Text>
-        <Avatar />
-      </Row>
-    </Pressable>
-  );
-};
-
-const HeaderLeft = () => {
-  const color = theme.colors.aqua[500];
-  return (
-    <View
-      sx={{
-        pl: 'gutter',
-      }}
-    >
-      <Pill borderColor={color}>
-        <Tube color={color} />
-        <Text variants={['mono', 'xxs']} sx={{ color: color, ml: 'xxs' }}>
-          Synced
-        </Text>
-      </Pill>
-    </View>
+      </View>
+    </ScrollView>
   );
 };

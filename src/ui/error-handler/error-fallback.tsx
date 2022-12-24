@@ -1,6 +1,7 @@
+import { Text, View } from 'dripsy';
 import * as React from 'react';
 
-import { Button, Text, View } from '../core';
+import { Button } from '../components';
 import { Screen } from '../screen';
 
 export function ErrorFallback({ resetErrorBoundary }: any) {

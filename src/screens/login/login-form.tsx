@@ -1,9 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Text, View } from 'dripsy';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
-import { Button, ControlledInput, Text, View } from '@/ui';
+import { Button, ControlledInput } from '@/ui';
 
 const schema = z.object({
   email: z
@@ -29,8 +30,8 @@ export const LoginForm = ({ onSubmit = () => {} }: Props) => {
     resolver: zodResolver(schema),
   });
   return (
-    <View className="flex-1 justify-center p-4">
-      <Text testID="form-title" variant="h1" className="pb-6 text-center">
+    <View>
+      <Text testID="form-title" variant="lg">
         Sign In
       </Text>
       <ControlledInput

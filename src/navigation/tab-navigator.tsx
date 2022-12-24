@@ -5,15 +5,19 @@ import type { ComponentType } from 'react';
 import * as React from 'react';
 import type { SvgProps } from 'react-native-svg';
 
-import { Dashboard, Domains, Wallet } from '@/screens';
-import { Settings as SettingsIcon, Style as DashboardIcon, theme } from '@/ui';
+import { Dashboard, Domains } from '@/screens';
+import { theme } from '@/ui';
+import {
+  WalletHeaderLeft,
+  WalletHeaderRight,
+  WalletHeaderTitle,
+} from '@/ui/components/headers';
+import { Domains as DomainIcon, WalletIcon } from '@/ui/icons';
 import { colors } from '@/ui/theme/colors';
 
 type TabParamList = {
   Dashboard: undefined;
   Domains: undefined;
-  Settings: undefined;
-  Wallet: undefined;
 };
 
 type TabType = {
@@ -29,10 +33,8 @@ type TabIconsType = {
 const Tab = createBottomTabNavigator<TabParamList>();
 
 const tabsIcons: TabIconsType = {
-  Dashboard: (props: SvgProps) => <DashboardIcon {...props} />,
-  Domains: (props: SvgProps) => <SettingsIcon {...props} />,
-  Settings: (props: SvgProps) => <SettingsIcon {...props} />,
-  Wallet: (props: SvgProps) => <SettingsIcon {...props} />,
+  Dashboard: (props: SvgProps) => <WalletIcon {...props} />,
+  Domains: (props: SvgProps) => <DomainIcon {...props} />,
 };
 
 export type TabList<T extends keyof TabParamList> = {
@@ -44,11 +46,6 @@ const tabs: TabType[] = [
   {
     name: 'Dashboard',
     component: Dashboard,
-    label: 'Dashboard',
-  },
-  {
-    name: 'Wallet',
-    component: Wallet,
     label: 'Wallet',
   },
   {
@@ -56,11 +53,6 @@ const tabs: TabType[] = [
     component: Domains,
     label: 'Domains',
   },
-  // {
-  //   name: 'Settings',
-  //   component: Settings,
-  //   label: 'Settings',
-  // },
 ];
 
 type BarIconType = {
@@ -78,7 +70,16 @@ const BarIcon = ({ color, name, ...reset }: BarIconType) => {
 export const TabNavigator = () => {
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={({ navigation, route }) => ({
+        // headerShown: false,
+        // eslint-disable-next-line react/no-unstable-nested-components
+        headerTitle: () => <WalletHeaderTitle />,
+        // eslint-disable-next-line react/no-unstable-nested-components
+        headerRight: () => (
+          <WalletHeaderRight openDrawer={navigation.openDrawer} />
+        ),
+        // eslint-disable-next-line react/no-unstable-nested-components
+        headerLeft: () => <WalletHeaderLeft />,
         // eslint-disable-next-line react/no-unstable-nested-components
         tabBarIcon: ({ color }) => <BarIcon name={route.name} color={color} />,
         tabBarInactiveBackgroundColor: colors.bg[900],
@@ -96,13 +97,12 @@ export const TabNavigator = () => {
           fontSize: 14,
           fontWeight: '500',
         },
+        tabBarIconStyle: {
+          paddingVertical: 0,
+        },
       })}
     >
-      <Tab.Group
-        screenOptions={{
-          headerShown: true,
-        }}
-      >
+      <Tab.Group>
         {tabs.map(({ name, component, label }) => {
           return (
             <Tab.Screen
@@ -113,16 +113,16 @@ export const TabNavigator = () => {
                 title: label,
                 headerStyle: {
                   backgroundColor: theme.colors.bg[900],
-                  borderBottomWidth: 0,
-                  borderColor: theme.colors.border.dark,
+                  // borderBottomWidth: 0,
+                  // borderColor: theme.colors.border.dark,
                 },
                 headerShadowVisible: false, // applied here
                 // headerBackTitleVisible: false,
-                headerTintColor: theme.colors.aqua[500],
-                headerTitleStyle: {
-                  fontSize: theme.fontSizes.sm,
-                  fontWeight: 'bold',
-                },
+                // headerTintColor: theme.colors.aqua[500],
+                // headerTitleStyle: {
+                //   fontSize: theme.fontSizes.sm,
+                //   fontWeight: 'bold',
+                // },
               })}
             />
           );

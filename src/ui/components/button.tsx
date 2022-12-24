@@ -1,9 +1,7 @@
+import { ActivityIndicator, Pressable } from 'dripsy';
+import { Text } from 'dripsy';
 import React from 'react';
 import type { TouchableOpacityProps } from 'react-native';
-
-import { ActivityIndicator } from './activity-indicator';
-import { Text } from './text';
-import { TouchableOpacity } from './touchable-opacity';
 
 type Variant = {
   container: string;
@@ -53,33 +51,33 @@ export const Button = ({
   ...props
 }: Props) => {
   return (
-    <TouchableOpacity
+    <Pressable
       disabled={disabled || loading}
-      className={`
-    ${buttonVariants.defaults.container}
-     ${buttonVariants[variant].container}
-     ${disabled ? 'opacity-50' : ''}
-    `}
+      //   className={`
+      // ${buttonVariants.defaults.container}
+      //  ${buttonVariants[variant].container}
+      //  ${disabled ? 'opacity-50' : ''}
+      // `}
       {...props}
     >
       {loading ? (
         <ActivityIndicator
           size="small"
-          className={`
-          ${buttonVariants.defaults.indicator}
-           ${buttonVariants[variant].indicator}
-          `}
+          // className={`
+          // ${buttonVariants.defaults.indicator}
+          //  ${buttonVariants[variant].indicator}
+          // `}
         />
       ) : (
         <Text
-          className={`
-          ${buttonVariants.defaults.label}
-           ${buttonVariants[variant].label}
-          `}
+        // className={`
+        // ${buttonVariants.defaults.label}
+        //  ${buttonVariants[variant].label}
+        // `}
         >
           {label}
         </Text>
       )}
-    </TouchableOpacity>
+    </Pressable>
   );
 };

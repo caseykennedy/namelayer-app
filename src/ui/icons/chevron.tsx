@@ -1,9 +1,6 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
 import type { SvgProps } from 'react-native-svg';
 import Svg, { Path } from 'react-native-svg';
-
-import { isRTL } from '@/core';
 
 import { theme } from '../theme';
 
@@ -18,10 +15,7 @@ export const Chevron = ({
     viewBox="0 0 9 16"
     fill="none"
     {...props}
-    style={StyleSheet.flatten([
-      style,
-      { transform: [{ scaleX: isRTL ? -1 : 1 }] },
-    ])}
+    style={style}
   >
     <Path
       d="M1 1L7.29289 7.29289C7.68342 7.68342 7.68342 8.31658 7.29289 8.70711L1 15"

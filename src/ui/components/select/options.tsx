@@ -1,10 +1,9 @@
 import { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet';
+import { Pressable, Text } from 'dripsy';
 import * as React from 'react';
 import type { PressableProps } from 'react-native';
 
 import { renderBackdrop } from '../bottom-sheet';
-import { Pressable } from '../pressable';
-import { Text } from '../text';
 import { Check } from './icons';
 
 export type Option = { label: string; value: string | number };
@@ -59,10 +58,17 @@ const Option = ({
 }: PressableProps & { selected?: boolean; label: string }) => {
   return (
     <Pressable
-      className="flex-row items-center border-b-[1px] border-neutral-300 py-2 px-3"
+      sx={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderBottomColor: 'border.lright',
+        py: 2,
+        px: 3,
+      }}
       {...props}
     >
-      <Text variant="md" className="flex-1">
+      <Text variant="md" sx={{ flex: 1 }}>
         {label}
       </Text>
       {selected && <Check />}

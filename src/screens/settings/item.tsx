@@ -1,7 +1,8 @@
+import { Pressable, Row, Text, View } from 'dripsy';
 import * as React from 'react';
 
 import type { TxKeyPath } from '@/core';
-import { Chevron, Text, TouchableOpacity, View } from '@/ui';
+import { Chevron } from '@/ui';
 
 type ItemProps = {
   text: TxKeyPath;
@@ -12,26 +13,32 @@ type ItemProps = {
 
 export const Item = ({ text, value, icon, onPress }: ItemProps) => {
   const isPressable = onPress !== undefined;
-  const Container = isPressable ? TouchableOpacity : View;
+  const Container = isPressable ? Pressable : View;
   return (
     <Container
       onPress={onPress}
-      className="flex-1 flex-row  items-center justify-between  px-4 py-2"
+      sx={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        px: 'gutter',
+        py: 'sm',
+      }}
+      // className="flex-1 flex-row  items-center justify-between  px-4 py-2"
     >
-      <View className="flex-row items-center">
-        {icon && <View className="pr-2">{icon}</View>}
-        <Text variant="md" tx={text} />
-      </View>
-      <View className="flex-row  items-center">
-        <Text variant="md" className="text-neutral-600">
-          {value}
-        </Text>
+      <Row sx={{ alignItems: 'center' }}>
+        {icon && <View>{icon}</View>}
+        <Text variant="md">{text}</Text>
+      </Row>
+
+      <Row sx={{ alignItems: 'center' }}>
+        <Text variant="md">{value}</Text>
         {isPressable && (
-          <View className="pl-2">
+          <View sx={{ pl: 'xs' }}>
             <Chevron />
           </View>
         )}
-      </View>
+      </Row>
     </Container>
   );
 };

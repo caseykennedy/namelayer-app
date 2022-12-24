@@ -76,6 +76,7 @@ export const theme = makeTheme({
     centered: { textAlign: 'center' },
 
     muted: { color: 'muted' },
+    error: { color: 'red' },
 
     xxxs: { fontSize: 'xxxs' },
     xxs: { fontSize: 'xxs' },
@@ -144,6 +145,7 @@ export const theme = makeTheme({
       // colors: 'always',
       space: 'always',
     },
+    reactNativeTypesOnly: true,
     // strictVariants: true,
   },
 });

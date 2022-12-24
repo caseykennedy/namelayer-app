@@ -6,7 +6,7 @@ import { WalletSupply } from './wallet-supply';
 
 export const Wallet = () => {
   return (
-    <View>
+    <View sx={{ backgroundColor: 'bg.900' }}>
       <WalletSupply />
       <WalletActions />
     </View>
