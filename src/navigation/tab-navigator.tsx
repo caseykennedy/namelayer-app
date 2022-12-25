@@ -80,8 +80,6 @@ export const TabNavigator = () => {
         ),
         // eslint-disable-next-line react/no-unstable-nested-components
         headerLeft: () => <WalletHeaderLeft />,
-        // eslint-disable-next-line react/no-unstable-nested-components
-        tabBarIcon: ({ color }) => <BarIcon name={route.name} color={color} />,
         tabBarInactiveBackgroundColor: colors.bg[900],
         tabBarActiveTintColor: colors.text,
         tabBarInactiveTintColor: colors.muted,
@@ -93,12 +91,14 @@ export const TabNavigator = () => {
             height: 90,
           },
         ],
+        // eslint-disable-next-line react/no-unstable-nested-components
+        tabBarIcon: ({ color }) => <BarIcon name={route.name} color={color} />,
+        tabBarIconStyle: {
+          paddingVertical: 0,
+        },
         tabBarLabelStyle: {
           fontSize: 14,
           fontWeight: '500',
-        },
-        tabBarIconStyle: {
-          paddingVertical: 0,
         },
       })}
     >

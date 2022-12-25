@@ -4,9 +4,9 @@ import Svg, { Path } from 'react-native-svg';
 
 import { theme } from '../theme';
 
-interface Props extends SvgProps {
+type Props = SvgProps & {
   size?: number;
-}
+};
 
 export const Settings = ({
   color = theme.colors.muted,

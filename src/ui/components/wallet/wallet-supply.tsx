@@ -1,11 +1,10 @@
 import { Row, Text, View } from 'dripsy';
 import * as React from 'react';
 
-import { Handshake, Lock } from '../../icons';
+import { useWallet } from '@/store';
+import { Icon, theme } from '@/ui';
 
-// type Props = {
-//   children: React.ReactNode;
-// };
+const HNS_CURRENT_FIAT = 0.24;
 
 export const WalletSupply = () => {
   return (
@@ -17,63 +16,93 @@ export const WalletSupply = () => {
         pt: 'xl',
       }}
     >
-      <Row
-        sx={{
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <View>
-          <Text variants={['xxl', 'medium']}>13,174.03</Text>
-        </View>
-        <Row
-          sx={{
-            alignItems: 'center',
-          }}
-        >
-          <View
-            sx={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              mr: 'xxs',
-              height: 26,
-              width: 26,
-              borderRadius: 'full',
-              borderColor: 'muted',
-              borderWidth: 1,
-            }}
-          >
-            <Handshake />
-          </View>
-          <Row
-            sx={{
-              justifyContent: 'center',
-            }}
-          >
-            <Text variants={['lg', 'bold']}>HNS</Text>
-          </Row>
-        </Row>
-      </Row>
-
-      <Row
-        sx={{
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          mt: 'xxs',
-        }}
-      >
-        <View>
-          <Text sx={{ color: 'muted' }}>$1,056.72</Text>
-        </View>
-        <Row
-          sx={{
-            alignItems: 'center',
-          }}
-        >
-          <Lock />
-          <Text sx={{ color: 'muted', ml: 'xxs' }}>273.25</Text>
-        </Row>
-      </Row>
+      <TokenBalance />
+      <TokenBalanceMeta />
     </View>
+  );
+};
+
+const TokenBalance = () => {
+  const { unconfirmed, lockedUnconfirmed } = useWallet(
+    (state) => state.balance
+  );
+  const spendable = unconfirmed - lockedUnconfirmed;
+  const spendableFormatted = spendable.toLocaleString();
+
+  return (
+    <Row
+      sx={{
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      }}
+    >
+      <View>
+        <Text variants={['xxl', 'medium']}>{spendableFormatted}</Text>
+      </View>
+
+      <HnsBadge />
+    </Row>
+  );
+};
+
+const HnsBadge = () => {
+  return (
+    <Row
+      sx={{
+        alignItems: 'center',
+      }}
+    >
+      <View
+        sx={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          mr: 'xxs',
+          height: 26,
+          width: 26,
+          borderRadius: 'full',
+          borderColor: 'muted',
+          borderWidth: 1,
+        }}
+      >
+        <Icon name="handshake" />
+      </View>
+      <Row
+        sx={{
+          justifyContent: 'center',
+        }}
+      >
+        <Text variants={['lg', 'bold']}>HNS</Text>
+      </Row>
+    </Row>
+  );
+};
+
+const TokenBalanceMeta = () => {
+  const { unconfirmed, lockedUnconfirmed } = useWallet(
+    (state) => state.balance
+  );
+  const spendableFiat = HNS_CURRENT_FIAT * (unconfirmed - lockedUnconfirmed);
+  const spendableFiatFormatted = spendableFiat.toLocaleString();
+
+  return (
+    <Row
+      sx={{
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        mt: 'xxs',
+      }}
+    >
+      <View>
+        <Text sx={{ color: 'muted' }}>${spendableFiatFormatted}</Text>
+      </View>
+      <Row
+        sx={{
+          alignItems: 'center',
+        }}
+      >
+        <Icon name="lock" size={14} color={theme.colors.muted} />
+        <Text sx={{ color: 'muted', ml: 'xxs' }}>{lockedUnconfirmed}</Text>
+      </Row>
+    </Row>
   );
 };

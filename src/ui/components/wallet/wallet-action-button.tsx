@@ -6,7 +6,7 @@ import * as React from 'react';
 
 import { txTypes } from '@/utils/constants';
 
-import { Arrow } from '../../icons';
+import { Icon } from '../icon';
 
 type ActionProps = {
   type: typeof txTypes[keyof typeof txTypes];
@@ -42,7 +42,7 @@ export const WalletActionButtonSend = () => {
   return (
     <WalletActionButton
       type={txTypes.SEND}
-      icon={<Arrow />}
+      icon={<Icon name="arrow" />}
       onPress={() =>
         nav.push('Tx', {
           screen: 'CreateTx',
@@ -61,7 +61,8 @@ export const WalletActionButtonReceive = () => {
     <WalletActionButton
       type={txTypes.RECEIVE}
       icon={
-        <Arrow
+        <Icon
+          name="arrow"
           style={{
             transform: [{ rotate: '180deg' }],
           }}
@@ -84,7 +85,7 @@ export const WalletActionButtonReveal = () => {
   return (
     <WalletActionButton
       type={txTypes.REVEAL}
-      icon={<Arrow />}
+      icon={<Icon name="arrow" />}
       onPress={() =>
         nav.push('Tx', {
           screen: 'CreateTx',
@@ -102,7 +103,7 @@ export const WalletActionButtonRedeem = () => {
   return (
     <WalletActionButton
       type={txTypes.REDEEM}
-      icon={<Arrow />}
+      icon={<Icon name="arrow" />}
       onPress={() =>
         nav.push('Tx', {
           screen: 'CreateTx',

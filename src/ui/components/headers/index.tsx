@@ -1,6 +1,7 @@
 import { Pressable, Row, Text, View } from 'dripsy';
-import React from 'react';
+import React, { useEffect } from 'react';
 
+import { useApp } from '@/store';
 import { theme } from '@/ui';
 import { Tube } from '@/ui/icons';
 
@@ -43,7 +44,16 @@ export const WalletHeaderRight = ({ openDrawer }: HeaderRightProps) => {
 };
 
 export const WalletHeaderLeft = () => {
+  const isSyncing = useApp((state) => state.isSyncing);
+  const syncMessage = useApp((state) => state.syncMessage);
   const color = theme.colors.aqua[500];
+
+  // const hasSyncMessage = syncMessage !== null;
+
+  useEffect(() => {
+    console.log('isSyncing:', isSyncing);
+  }, [isSyncing]);
+
   return (
     <View
       sx={{
@@ -53,7 +63,7 @@ export const WalletHeaderLeft = () => {
       <Pill borderColor={color}>
         <Tube color={color} />
         <Text variants={['mono', 'xxs']} sx={{ color: color, ml: 'xxs' }}>
-          Synced
+          {isSyncing ? syncMessage : 'Synced'}
         </Text>
       </Pill>
     </View>
