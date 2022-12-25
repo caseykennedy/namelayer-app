@@ -8,6 +8,9 @@ import { txTypes } from '@/utils/constants';
 
 import { Icon } from '../icon';
 
+const txNavigator = 'Tx';
+const createTxScreen = 'CreateTx';
+
 type ActionProps = {
   type: typeof txTypes[keyof typeof txTypes];
   onPress: () => void;
@@ -37,15 +40,15 @@ const WalletActionButton = ({ icon, onPress, type }: ActionProps) => {
   );
 };
 
-export const WalletActionButtonSend = () => {
+export const SendButton = () => {
   const nav = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   return (
     <WalletActionButton
       type={txTypes.SEND}
       icon={<Icon name="arrow" />}
       onPress={() =>
-        nav.push('Tx', {
-          screen: 'CreateTx',
+        nav.push(txNavigator, {
+          screen: createTxScreen,
           params: {
             type: txTypes.SEND,
           },
@@ -55,7 +58,7 @@ export const WalletActionButtonSend = () => {
   );
 };
 
-export const WalletActionButtonReceive = () => {
+export const ReceiveButton = () => {
   const nav = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   return (
     <WalletActionButton
@@ -69,8 +72,8 @@ export const WalletActionButtonReceive = () => {
         />
       }
       onPress={() =>
-        nav.push('Tx', {
-          screen: 'CreateTx',
+        nav.push(txNavigator, {
+          screen: createTxScreen,
           params: {
             type: txTypes.RECEIVE,
           },
@@ -80,15 +83,15 @@ export const WalletActionButtonReceive = () => {
   );
 };
 
-export const WalletActionButtonReveal = () => {
+export const RevealButton = () => {
   const nav = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   return (
     <WalletActionButton
       type={txTypes.REVEAL}
       icon={<Icon name="arrow" />}
       onPress={() =>
-        nav.push('Tx', {
-          screen: 'CreateTx',
+        nav.push(txNavigator, {
+          screen: createTxScreen,
           params: {
             type: txTypes.REVEAL,
           },
@@ -98,15 +101,15 @@ export const WalletActionButtonReveal = () => {
   );
 };
 
-export const WalletActionButtonRedeem = () => {
+export const RedeemButton = () => {
   const nav = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   return (
     <WalletActionButton
       type={txTypes.REDEEM}
       icon={<Icon name="arrow" />}
       onPress={() =>
-        nav.push('Tx', {
-          screen: 'CreateTx',
+        nav.push(txNavigator, {
+          screen: createTxScreen,
           params: {
             type: txTypes.REDEEM,
           },

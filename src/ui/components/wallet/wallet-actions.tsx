@@ -2,10 +2,10 @@ import { Row } from 'dripsy';
 import * as React from 'react';
 
 import {
-  WalletActionButtonReceive,
-  WalletActionButtonRedeem,
-  WalletActionButtonReveal,
-  WalletActionButtonSend,
+  ReceiveButton,
+  RedeemButton,
+  RevealButton,
+  SendButton,
 } from './wallet-action-button';
 
 export const WalletActions = () => (
@@ -15,9 +15,9 @@ export const WalletActions = () => (
       justifyContent: 'space-around',
     }}
   >
-    <WalletActionButtonSend />
-    <WalletActionButtonReceive />
-    <WalletActionButtonRedeem />
-    <WalletActionButtonReveal />
+    <SendButton />
+    <ReceiveButton />
+    <RedeemButton />
+    <RevealButton />
   </Row>
 );
