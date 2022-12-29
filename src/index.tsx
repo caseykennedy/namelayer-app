@@ -1,4 +1,7 @@
-import '../shim.js';
+require('node-libs-react-native/globals.js');
+import 'react-native-url-polyfill/auto';
+// import 'react-native-get-random-values';
+import 'crypto';
 import 'react-native-gesture-handler';
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';

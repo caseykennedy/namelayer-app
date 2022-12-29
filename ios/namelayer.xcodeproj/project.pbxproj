@@ -13,6 +13,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		316A1C1AB67C49B38BF52A5C /* NBInternationalPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D3B2987D614412DAA461238 /* NBInternationalPro-Bold.ttf */; };
+		39DE81F8295CE824004F66FD /* react-native-os in Resources */ = {isa = PBXBuildFile; fileRef = 39DE81F7295CE824004F66FD /* react-native-os */; };
 		3AC78A1CF74D4856A8DE71EC /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB2051BC7C4A0695F775D1 /* noop-file.swift */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
 		40275FCFCC0B40258038583B /* NBInternationalPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2E8D3BEF34044CAA9094F82 /* NBInternationalPro-Regular.ttf */; };
@@ -32,19 +33,20 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = namelayer/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = namelayer/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = namelayer/main.m; sourceTree = "<group>"; };
-		3E31A7F0B52149C0B5E6ECCD /* NB International Pro Mono.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NB International Pro Mono.ttf"; path = "../assets/fonts/NB International Pro Mono.ttf"; sourceTree = "<group>"; };
-		5059772E125B41BCAF22A59A /* Inter.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Inter.ttf; path = ../assets/fonts/Inter.ttf; sourceTree = "<group>"; };
+		39DE81F7295CE824004F66FD /* react-native-os */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "react-native-os"; path = "../node_modules/react-native-os"; sourceTree = "<group>"; };
+		3E31A7F0B52149C0B5E6ECCD /* NB International Pro Mono.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NB International Pro Mono.ttf"; path = "../assets/fonts/NB International Pro Mono.ttf"; sourceTree = "<group>"; };
+		5059772E125B41BCAF22A59A /* Inter.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Inter.ttf; path = ../assets/fonts/Inter.ttf; sourceTree = "<group>"; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-namelayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-namelayer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		62EB2051BC7C4A0695F775D1 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "namelayer/noop-file.swift"; sourceTree = "<group>"; };
 		6C2E3173556A471DD304B334 /* Pods-namelayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-namelayer.debug.xcconfig"; path = "Target Support Files/Pods-namelayer/Pods-namelayer.debug.xcconfig"; sourceTree = "<group>"; };
-		6E3F30A53C0840A9AFBC2BDA /* NB-International-Pro-Mono.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NB-International-Pro-Mono.ttf"; path = "../assets/fonts/NB-International-Pro-Mono.ttf"; sourceTree = "<group>"; };
+		6E3F30A53C0840A9AFBC2BDA /* NB-International-Pro-Mono.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NB-International-Pro-Mono.ttf"; path = "../assets/fonts/NB-International-Pro-Mono.ttf"; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-namelayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-namelayer.release.xcconfig"; path = "Target Support Files/Pods-namelayer/Pods-namelayer.release.xcconfig"; sourceTree = "<group>"; };
-		9D3B2987D614412DAA461238 /* NBInternationalPro-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NBInternationalPro-Bold.ttf"; path = "../assets/fonts/NBInternationalPro-Bold.ttf"; sourceTree = "<group>"; };
+		9D3B2987D614412DAA461238 /* NBInternationalPro-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NBInternationalPro-Bold.ttf"; path = "../assets/fonts/NBInternationalPro-Bold.ttf"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = namelayer/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		D2E8D3BEF34044CAA9094F82 /* NBInternationalPro-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NBInternationalPro-Regular.ttf"; path = "../assets/fonts/NBInternationalPro-Regular.ttf"; sourceTree = "<group>"; };
-		DC43EE34B25F4831BB3C61F3 /* NBInternationalPro-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NBInternationalPro-Medium.ttf"; path = "../assets/fonts/NBInternationalPro-Medium.ttf"; sourceTree = "<group>"; };
-		E4D105A4AF02462DAE7FD532 /* NBInternationalPro-Mono.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NBInternationalPro-Mono.ttf"; path = "../assets/fonts/NBInternationalPro-Mono.ttf"; sourceTree = "<group>"; };
+		D2E8D3BEF34044CAA9094F82 /* NBInternationalPro-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NBInternationalPro-Regular.ttf"; path = "../assets/fonts/NBInternationalPro-Regular.ttf"; sourceTree = "<group>"; };
+		DC43EE34B25F4831BB3C61F3 /* NBInternationalPro-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NBInternationalPro-Medium.ttf"; path = "../assets/fonts/NBInternationalPro-Medium.ttf"; sourceTree = "<group>"; };
+		E4D105A4AF02462DAE7FD532 /* NBInternationalPro-Mono.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NBInternationalPro-Mono.ttf"; path = "../assets/fonts/NBInternationalPro-Mono.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-namelayer/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,12 +100,12 @@
 				D2E8D3BEF34044CAA9094F82 /* NBInternationalPro-Regular.ttf */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				39DE81F7295CE824004F66FD /* react-native-os */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -180,6 +182,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
+				6E3DED9C19A42227AA924C5D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -227,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
+				39DE81F8295CE824004F66FD /* react-native-os in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
 				6C45F2F892D84E7A9E3A4A06 /* Inter.ttf in Resources */,
@@ -276,6 +280,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6E3DED9C19A42227AA924C5D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-namelayer/Pods-namelayer-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-namelayer/Pods-namelayer-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
@@ -426,7 +448,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -484,7 +506,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
