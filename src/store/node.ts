@@ -1,13 +1,23 @@
-import create from 'zustand';
+import type { StateCreator } from 'zustand';
 
-type NodeState = {
+import NodeClient from '@/core/background/node';
+
+import type { AppSlice } from './app';
+
+export type NodeSlice = {
   hash: string;
   height: number;
   time: number;
   setInfo: (hash: string, height: number, time: number) => void;
+  fetchLatestBlock: () => Promise<void>;
 };
 
-export const useNode = create<NodeState>((set, get) => ({
+export const createNodeSlice: StateCreator<
+  NodeSlice & AppSlice,
+  [],
+  [],
+  NodeSlice
+> = (set, get) => ({
   hash: '',
   height: -1,
   time: -1,
@@ -18,12 +28,27 @@ export const useNode = create<NodeState>((set, get) => ({
       time,
     });
   },
-  fetchLatestBlock: () => {
-    // const block = await postMessage({ type: MessageTypes.GET_LATEST_BLOCK });
-    // const { hash, height, time } = block;
-    // get().setInfo(hash, height, time);
-  },
-}));
+  fetchLatestBlock: async () => {
+    const apiHost = get().apiHost;
+    const apiKey = get().apiKey;
 
-export const setInfo = (hash: string, height: number, time: number) =>
-  useNode.getState().setInfo(hash, height, time);
+    const nodeClient = new NodeClient({ apiHost, apiKey });
+
+    try {
+      const blockchanInfo = await nodeClient.getBlockchainInfo();
+      const block = await nodeClient.getBlockByHeight(
+        blockchanInfo!.result!.blocks
+      );
+      const { hash, height, time } = block || {};
+
+      get().setInfo(hash, height, time);
+
+      console.log('fetchLatestBlock', hash, height, time);
+    } catch (e) {
+      console.warn('fetchLatestBlock', e);
+    }
+  },
+});
+
+// export const setInfo = (hash: string, height: number, time: number) =>
+//   useNode.getState().setInfo(hash, height, time);

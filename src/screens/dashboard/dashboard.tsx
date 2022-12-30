@@ -1,52 +1,68 @@
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Pressable, ScrollView, Text, View } from 'dripsy';
-import { EventEmitter2 } from 'eventemitter2';
-import React from 'react';
+import { Pressable, Text, View } from 'dripsy';
+import React, { useEffect } from 'react';
+import { ScrollView } from 'react-native';
+
+import { put } from '@/utils/db';
+
+const bdb = require('bdb');
+const DB = require('bdb/lib/db');
 
 import type { RootStackParamList } from '@/navigation/types';
-import { setIsSyncing, useWallet } from '@/store';
+import { useStore, useWallet } from '@/store';
+import { theme } from '@/ui';
 import { Button, Wallet } from '@/ui/components';
-import NodeClient from '@/utils/nodeclient';
-
-const apiKey = '45b260cb1edeabe7515cc3ac6913acd2';
-const apiHost = 'https://api.handshakeapi.com/hsd';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'ConfirmTx'>;
 
 export const Dashboard = ({ route, navigation }: ScreenProps) => {
-  const [test, setTest] = React.useState('');
   const nav = useNavigation();
   console.log('ConfirmTxProps:', route, navigation);
 
+  const blockHeight = useStore.use.height();
   const wallet = useWallet((state) => state);
-  console.log('wallet:', wallet);
+  const apiHost = useStore.use.apiHost();
+  const apiKey = useStore.use.apiKey();
+  const setIsSyncing = useStore.use.setIsSyncing();
 
-  console.log('EventEmitter2:', EventEmitter2);
-
-  const testNode = async () => {
-    const nodeClient = new NodeClient({ apiHost, apiKey });
-    try {
-      const blockchanInfo = await nodeClient.getBlockchainInfo();
-      const block = await nodeClient.getBlock(
-        blockchanInfo!.result!.bestblockhash
-      );
-      const { hash, height, time } = block.result || {};
-      const json = await nodeClient.getNameInfo('c');
-      const { result } = json;
-      console.log('res:', result.info.name);
-      setTest(JSON.stringify(result));
-    } catch (err) {
-      console.log('err:', err);
-    }
-  };
-
-  React.useEffect(() => {
-    testNode();
+  useEffect(() => {
+    const putTest = async () => {
+      const db = bdb.create('/test-store');
+      await db.open();
+      try {
+        const test = await put(db, 'test', '00');
+        console.log('test:::', test);
+      } catch (e) {
+        console.error('test:::', e);
+      }
+    };
+    console.log('putTest:', putTest());
   }, []);
 
+  // React.useEffect(() => {
+  //   const testFunc = async () => {
+  //     try {
+  //       const nodeClient = new NodeClient({ apiHost, apiKey });
+
+  //       console.log('nodeClient:::', nodeClient.store);
+  //     } catch (error) {
+  //       console.log('fetchLatestBlock', error);
+  //     }
+
+  //     // return {
+  //     //   hash,
+  //     //   height,
+  //     //   time,
+  //     // };
+  //   };
+
+  //   console.log('testFunc', testFunc());
+  // }, [apiHost, apiKey]);
+
   return (
-    <ScrollView sx={{ flex: 1, backgroundColor: 'bg.800' }}>
+    // eslint-disable-next-line react-native/no-inline-styles
+    <ScrollView style={{ flex: 1, backgroundColor: theme.colors.bg[800] }}>
       <Wallet />
       <View
         sx={{
@@ -66,45 +82,16 @@ export const Dashboard = ({ route, navigation }: ScreenProps) => {
             sx={{ px: 'gutter', py: 'gutter', alignItems: 'center' }}
           />
         </Pressable>
-        <Pressable onPress={() => setIsSyncing(true)}>
-          <Text variants={['md', 'centered']} sx={{ color: 'muted' }}>
-            set sync on
-          </Text>
-        </Pressable>
-        <Pressable onPress={() => setIsSyncing(false)}>
-          <Text variants={['md', 'centered']} sx={{ color: 'muted' }}>
-            set sync off
-          </Text>
-        </Pressable>
-        <Pressable onPress={() => wallet.setCurrentAccount('current account')}>
-          <Text variants={['md', 'centered']} sx={{ color: 'muted' }}>
-            current wallet account
-          </Text>
-        </Pressable>
-        <Pressable onPress={() => wallet.setCurrentAccount('default')}>
-          <Text variants={['md', 'centered']} sx={{ color: 'muted' }}>
-            default wallet account
-          </Text>
-        </Pressable>
       </View>
+
       <View
         sx={{
           flex: 1,
-          py: 'xl',
+          py: 'md',
         }}
       >
         <Text variants={['md', 'centered']} sx={{ color: 'muted' }}>
-          {wallet.currentAccount}
-        </Text>
-      </View>
-      <View
-        sx={{
-          flex: 1,
-          py: 'xl',
-        }}
-      >
-        <Text variants={['md', 'centered']} sx={{ color: 'muted' }}>
-          {test}
+          {blockHeight}
         </Text>
       </View>
     </ScrollView>

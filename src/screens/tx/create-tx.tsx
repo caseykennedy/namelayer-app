@@ -2,9 +2,9 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Pressable, Text, View } from 'dripsy';
 import React, { useEffect } from 'react';
 
+import { txTypes } from '@/constants/tx-types';
 import type { RootStackParamList } from '@/navigation/types';
 import { Chevron } from '@/ui';
-import { txTypes } from '@/utils/constants';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'CreateTx'>;
 

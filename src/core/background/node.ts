@@ -1,35 +1,45 @@
-import { GenericService } from '@/utils/svc';
+import { get, put } from '@/utils/db';
 const bdb = require('bdb');
 const DB = require('bdb/lib/db');
 const rules = require('hsd/lib/covenants/rules');
-import { get, put } from '@/utils/db';
 const { states, statesByVal } = require('hsd/lib/covenants/namestate');
 const Network = require('hsd/lib/protocol/network');
+
 const networkType = process.env.NETWORK_TYPE || 'main';
 
 const NAME_CACHE: string[] = [];
 const NAME_MAP: { [hash: string]: string } = {};
 
-export default class NodeService extends GenericService {
+type NodeServiceOptions = {
+  apiHost: string;
+  apiKey?: string;
+};
+
+export default class NodeClient {
+  apiHost: string;
+  apiKey?: string;
   store: typeof DB;
   network: typeof Network;
 
-  async getHeaders(): Promise<any> {
-    const { apiHost, apiKey } = await this.exec('setting', 'getAPI');
+  constructor(options: NodeServiceOptions) {
+    this.apiHost = options.apiHost;
+    this.apiKey = options.apiKey;
+    this.store = bdb.create('/node-store');
+  }
 
+  async getHeaders(): Promise<any> {
     return {
       'Content-Type': 'application/json',
-      Authorization: apiKey
-        ? 'Basic ' + Buffer.from(`x:${apiKey}`).toString('base64')
+      Authorization: this.apiKey
+        ? 'Basic ' + Buffer.from(`x:${this.apiKey}`).toString('base64')
         : '',
     };
   }
 
   async getTokenURL(): Promise<string> {
-    const { apiHost, apiKey } = await this.exec('setting', 'getAPI');
-    const [protocol, url] = apiHost.split('//');
+    const [protocol, url] = this.apiHost.split('//');
 
-    return `${protocol}//x:${apiKey}@${url}`;
+    return `${protocol}//x:${this.apiKey}@${url}`;
   }
 
   estimateSmartFee = async (opt: number) => {
@@ -84,15 +94,18 @@ export default class NodeService extends GenericService {
   }
 
   async getBlockByHeight(blockHeight: number) {
-    const cachedEntry = await get(this.store, `blockdata-${blockHeight}`);
-    if (cachedEntry) return cachedEntry;
+    // await this.store.open();
+    // const cachedEntry = await get(this.store, `blockdata-${blockHeight}`);
+    // if (cachedEntry) return cachedEntry;
+
+    console.log('db::', this.store);
 
     const headers = await this.getHeaders();
     const block = await this.fetch(`block/${blockHeight}`, {
       method: 'GET',
       headers: headers,
     });
-    await put(this.store, `blockdata-${blockHeight}`, block);
+    // await put(this.store, `blockdata-${blockHeight}`, block);
     return block;
   }
 
@@ -187,6 +200,7 @@ export default class NodeService extends GenericService {
         params: [tld],
       }),
     });
+    // TODO: refactor
     // await put(this.store, `nameinfo-${tld}`, json);
   }
 
@@ -241,9 +255,8 @@ export default class NodeService extends GenericService {
     transactions: any[] = []
   ): Promise<any[]> {
     const headers = await this.getHeaders();
-    const { apiHost } = await this.exec('setting', 'getAPI');
 
-    const resp = await fetch(`${apiHost}/tx/address`, {
+    const resp = await fetch(`${this.apiHost}/tx/address`, {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({
@@ -255,7 +268,7 @@ export default class NodeService extends GenericService {
 
     const json = await resp.json();
 
-    if (apiHost.includes('api.handshakeapi.com')) {
+    if (this.apiHost.includes('api.handshakeapi.com')) {
       if (resp.status === 200 && endBlock === json.endBlock) {
         return transactions.concat(json.txs);
       }
@@ -284,8 +297,10 @@ export default class NodeService extends GenericService {
   async stop() {}
 
   async fetch(path: string | null, init: RequestInit): Promise<any> {
-    const { apiHost } = await this.exec('setting', 'getAPI');
-    const resp = await fetch(path ? `${apiHost}/${path}` : apiHost, init);
+    const resp = await fetch(
+      path ? `${this.apiHost}/${path}` : this.apiHost,
+      init
+    );
 
     if (resp.status !== 200) {
       console.error(`Bad response code ${resp.status}.`);
@@ -305,3 +320,7 @@ export default class NodeService extends GenericService {
     return resp.json();
   }
 }
+
+// export const useNodeClient = () => {
+//   return new NodeClient({ apiHost, apiKey });
+// };

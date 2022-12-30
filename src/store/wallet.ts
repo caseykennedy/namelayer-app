@@ -1,5 +1,7 @@
 import create from 'zustand';
 
+import createSelectors from '@/utils/create-selectors';
+
 type CreateWalletShape = {
   walletName: string;
   seedphrase: string;
@@ -64,7 +66,7 @@ type WalletState = {
   setReceiveAddress: (receiveAddress: string) => void;
 };
 
-export const useWallet = create<WalletState>((set) => ({
+export const useWalletBase = create<WalletState>((set) => ({
   wallets: [],
   walletIDs: [],
   currentWallet: '',
@@ -117,32 +119,35 @@ export const useWallet = create<WalletState>((set) => ({
     console.log('set receive address', receiveAddress),
 }));
 
-export const createWallet = (options: CreateWalletShape) =>
-  console.log(options);
-export const lockWallet = () => useWallet.getState().lockWallet();
-export const unlockWallet = (password: string) => {
-  useWallet.getState().unlockWallet(password);
-  console.log(password);
-};
-export const fetchWalletState = useWallet.getState().fetchWalletState;
-export const fetchWalletBalance = () => useWallet.getState().fetchWalletBalance;
-export const setWalletBalance = (balance: WalletBalanceShape) =>
-  useWallet.getState().setWalletBalance(balance);
-export const fetchWallets = () => useWallet.getState().fetchWallets;
-export const fetchAccountNames = (walletID: string) =>
-  useWallet.getState().fetchAccountNames(walletID);
-export const setAccountNames = (accountNames: string[]) =>
-  useWallet.getState().setAccountNames(accountNames);
-export const fetchAccountsInfo = (walletId: string) =>
-  useWallet.getState().fetchAccountsInfo(walletId);
-export const selectAccount = (accountName: string) =>
-  useWallet.getState().selectAccount(accountName);
-export const setCurrentAccount = (accountName: string) =>
-  useWallet.getState().setCurrentAccount(accountName);
-export const fetchWalletIDs = () => useWallet.getState().fetchWalletIDs;
-export const selectWallet = (id: string) =>
-  useWallet.getState().selectWallet(id);
-export const fetchReceiveAddress = (accountName: string, id: string) =>
-  useWallet.getState().fetchReceiveAddress(accountName, id);
-export const setReceiveAddress = (receiveAddress: string) =>
-  useWallet.getState().setReceiveAddress(receiveAddress);
+export const useWallet = createSelectors(useWalletBase);
+
+// export const createWallet = (options: CreateWalletShape) =>
+//   console.log(options);
+// export const lockWallet = () => useWalletBase.getState().lockWallet();
+// export const unlockWallet = (password: string) => {
+//   useWalletBase.getState().unlockWallet(password);
+//   console.log(password);
+// };
+// export const fetchWalletState = useWalletBase.getState().fetchWalletState;
+// export const fetchWalletBalance = () =>
+//   useWalletBase.getState().fetchWalletBalance;
+// export const setWalletBalance = (balance: WalletBalanceShape) =>
+//   useWalletBase.getState().setWalletBalance(balance);
+// export const fetchWallets = () => useWalletBase.getState().fetchWallets;
+// export const fetchAccountNames = (walletID: string) =>
+//   useWalletBase.getState().fetchAccountNames(walletID);
+// export const setAccountNames = (accountNames: string[]) =>
+//   useWalletBase.getState().setAccountNames(accountNames);
+// export const fetchAccountsInfo = (walletId: string) =>
+//   useWalletBase.getState().fetchAccountsInfo(walletId);
+// export const selectAccount = (accountName: string) =>
+//   useWalletBase.getState().selectAccount(accountName);
+// export const setCurrentAccount = (accountName: string) =>
+//   useWalletBase.getState().setCurrentAccount(accountName);
+// export const fetchWalletIDs = () => useWalletBase.getState().fetchWalletIDs;
+// export const selectWallet = (id: string) =>
+//   useWalletBase.getState().selectWallet(id);
+// export const fetchReceiveAddress = (accountName: string, id: string) =>
+//   useWalletBase.getState().fetchReceiveAddress(accountName, id);
+// export const setReceiveAddress = (receiveAddress: string) =>
+//   useWalletBase.getState().setReceiveAddress(receiveAddress);

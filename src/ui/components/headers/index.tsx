@@ -1,7 +1,7 @@
 import { Pressable, Row, Text, View } from 'dripsy';
 import React, { useEffect } from 'react';
 
-import { useApp } from '@/store';
+import { useStore } from '@/store';
 import { theme } from '@/ui';
 import { Tube } from '@/ui/icons';
 
@@ -44,8 +44,8 @@ export const WalletHeaderRight = ({ openDrawer }: HeaderRightProps) => {
 };
 
 export const WalletHeaderLeft = () => {
-  const isSyncing = useApp((state) => state.isSyncing);
-  const syncMessage = useApp((state) => state.syncMessage);
+  const isSyncing = useStore.use.isSyncing();
+  const syncMessage = useStore.use.syncMessage();
   const color = theme.colors.aqua[500];
 
   // const hasSyncMessage = syncMessage !== null;

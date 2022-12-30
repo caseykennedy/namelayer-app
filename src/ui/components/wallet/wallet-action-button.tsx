@@ -4,7 +4,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Pressable, Text, View } from 'dripsy';
 import * as React from 'react';
 
-import { txTypes } from '@/utils/constants';
+import { txTypes } from '@/constants/tx-types';
 
 import { Icon } from '../icon';
 
