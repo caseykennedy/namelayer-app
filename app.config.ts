@@ -14,7 +14,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   name: Config.name,
   description: `${Config.name} Mobile App`,
-  slug: 'namelayer',
+  slug: 'obytesapp',
   version: Config.version.toString(),
   orientation: 'portrait',
   icon: Config.icon,

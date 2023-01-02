@@ -15,7 +15,7 @@ import {
 import { Domains as DomainIcon, WalletIcon } from '@/ui/icons';
 import { colors } from '@/ui/theme/colors';
 
-type TabParamList = {
+export type TabParamList = {
   Dashboard: undefined;
   Domains: undefined;
 };

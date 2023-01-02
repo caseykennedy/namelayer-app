@@ -52,7 +52,6 @@ export const LoginForm = ({ onSubmit = () => {} }: Props) => {
         testID="login-button"
         label="Login"
         onPress={handleSubmit(onSubmit)}
-        variant="primary"
       />
     </View>
   );

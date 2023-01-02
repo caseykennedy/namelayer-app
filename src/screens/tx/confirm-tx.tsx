@@ -6,7 +6,7 @@ import { Button } from 'react-native';
 
 import type { RootStackParamList } from '@/navigation/types';
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'ConfirmTx'>;
+type ScreenProps = NativeStackScreenProps<RootStackParamList>;
 
 export const ConfirmTx = ({ route, navigation }: ScreenProps) => {
   const nav = useNavigation();

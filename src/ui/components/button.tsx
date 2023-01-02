@@ -1,5 +1,4 @@
 import { ActivityIndicator, Pressable } from 'dripsy';
-import { Text } from 'dripsy';
 import React from 'react';
 import type { PressableProps } from 'react-native';
 
@@ -38,20 +37,20 @@ import type { PressableProps } from 'react-native';
 // };
 
 interface Props extends PressableProps {
-  label?: string;
+  children: React.ReactNode;
   loading?: boolean;
   sx?: any;
 }
 
 export const Button = ({
-  label,
+  children,
   loading = false,
   disabled = false,
   ...props
 }: Props) => {
   return (
     <Pressable disabled={disabled || loading} {...props}>
-      {loading ? <ActivityIndicator size="small" /> : <Text>{label}</Text>}
+      {loading ? <ActivityIndicator size="small" /> : children}
     </Pressable>
   );
 };

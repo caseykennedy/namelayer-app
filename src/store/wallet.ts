@@ -7,8 +7,6 @@ type CreateWalletShape = {
   seedphrase: string;
   password: string;
   optIn: boolean;
-  isLedger: boolean;
-  xpub: string | undefined;
 };
 
 type WalletBalanceShape = {
@@ -17,6 +15,7 @@ type WalletBalanceShape = {
 };
 
 type WalletState = {
+  createWalletOptions: CreateWalletShape;
   wallets: {
     accountDepth: number;
     encrypted: string;
@@ -67,6 +66,12 @@ type WalletState = {
 };
 
 export const useWalletBase = create<WalletState>((set) => ({
+  createWalletOptions: {
+    walletName: '',
+    seedphrase: '',
+    password: '',
+    optIn: false,
+  },
   wallets: [],
   walletIDs: [],
   currentWallet: '',

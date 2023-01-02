@@ -4,41 +4,27 @@ import { Pressable, Text, View } from 'dripsy';
 import React, { useEffect } from 'react';
 import { ScrollView } from 'react-native';
 
-import { put } from '@/utils/db';
-
-const bdb = require('bdb');
-const DB = require('bdb/lib/db');
-
 import type { RootStackParamList } from '@/navigation/types';
-import { useStore, useWallet } from '@/store';
+import { useStore } from '@/store';
 import { theme } from '@/ui';
 import { Button, Wallet } from '@/ui/components';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'ConfirmTx'>;
 
-export const Dashboard = ({ route, navigation }: ScreenProps) => {
+export const Dashboard = ({}: ScreenProps) => {
   const nav = useNavigation();
-  console.log('ConfirmTxProps:', route, navigation);
 
   const blockHeight = useStore.use.height();
-  const wallet = useWallet((state) => state);
-  const apiHost = useStore.use.apiHost();
-  const apiKey = useStore.use.apiKey();
-  const setIsSyncing = useStore.use.setIsSyncing();
+  // const wallet = useWallet((state) => state);
+  // const apiHost = useStore.use.apiHost();
+  // const apiKey = useStore.use.apiKey();
+  // const setIsSyncing = useStore.use.setIsSyncing();
+
+  const putTest = useStore.use.testPut();
 
   useEffect(() => {
-    const putTest = async () => {
-      const db = bdb.create('/test-store');
-      await db.open();
-      try {
-        const test = await put(db, 'test', '00');
-        console.log('test:::', test);
-      } catch (e) {
-        console.error('test:::', e);
-      }
-    };
-    console.log('putTest:', putTest());
-  }, []);
+    putTest();
+  }, [putTest]);
 
   // React.useEffect(() => {
   //   const testFunc = async () => {
@@ -77,10 +63,11 @@ export const Dashboard = ({ route, navigation }: ScreenProps) => {
         // })}
         >
           <Button
-            label="open confirm tx modal"
             onPress={() => nav.navigate('ConfirmTx')}
             sx={{ px: 'gutter', py: 'gutter', alignItems: 'center' }}
-          />
+          >
+            <Text>open confirm tx modal</Text>
+          </Button>
         </Pressable>
       </View>
 

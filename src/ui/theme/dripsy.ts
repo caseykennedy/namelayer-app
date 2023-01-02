@@ -88,6 +88,27 @@ export const theme = makeTheme({
     xxl: { fontSize: 'xxl' },
     xxxl: { fontSize: 'xxxl' },
   },
+  // buttons: {
+  //   primary: {
+  //     px: 'md',
+  //     py: 'sm',
+
+  //     bg: 'bg.800',
+  //     borderRadius: 'sm',
+  //     borderStyle: 'solid',
+  //     borderColor: 'border.dark',
+  //     borderWidth: 1,
+
+  //     width: '100%',
+
+  //     label: {
+  //       color: 'muted',
+  //     },
+  //   },
+  //   fullWidth: {
+  //     width: '100%',
+  //   },
+  // },
   shadows: {
     md: {
       shadowOffset: {
@@ -97,12 +118,7 @@ export const theme = makeTheme({
       shadowOpacity: 0.8,
       shadowRadius: 14,
       elevation: 25,
-      shadowColor: 'background',
-    },
-  },
-  buttons: {
-    primary: {
-      backgroundColor: 'primary',
+      shadowColor: 'bg.900',
     },
   },
   borders: {

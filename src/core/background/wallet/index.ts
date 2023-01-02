@@ -28,7 +28,6 @@ import pushMessage from '@src/util/pushMessage';
 import { GenericService } from '@src/util/svc';
 import { getBidBlind, getTXAction } from '@src/util/transaction';
 import crypto from 'crypto';
-import { USB } from 'hsd-ledger/lib/hsd-ledger-browser';
 
 import nodeService from '../node';
 const Mnemonic = require('hsd/lib/hd/mnemonic');
@@ -52,7 +51,6 @@ const DB = require('bdb/lib/DB');
 const layout = require('hsd/lib/wallet/layout').txdb;
 const { Resource } = require('hsd/lib/dns/resource');
 
-const { Device } = USB;
 const blake2b = require('bcrypto/lib/blake2b');
 
 const { types, typesByVal } = rules;

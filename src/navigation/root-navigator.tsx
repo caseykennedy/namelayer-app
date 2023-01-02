@@ -4,11 +4,12 @@ import React, { useEffect } from 'react';
 
 import { useAuth } from '@/core';
 import { useIsFirstTime } from '@/core/hooks';
-import { ConfirmTx, Onboarding } from '@/screens';
+import { ConfirmTx } from '@/screens';
 
 import { AuthNavigator } from './auth-navigator';
 import { DrawerNavigator } from './drawer-navigator';
 import { NavigationContainer } from './navigation-container';
+import { OnboardingNavigator } from './onboarding-navigator';
 import { TxNavigator } from './tx-navigator';
 
 const RootStack = createNativeStackNavigator();
@@ -34,28 +35,23 @@ export const Root = () => {
       }}
     >
       {isFirstTime ? (
-        <RootStack.Screen name="Onboarding" component={Onboarding} />
+        <RootStack.Group>
+          <RootStack.Screen name="Onboarding" component={OnboardingNavigator} />
+        </RootStack.Group>
       ) : (
-        <>
-          <RootStack.Group>
-            {status !== 'signOut' ? (
-              <RootStack.Screen name="Auth" component={AuthNavigator} />
-            ) : (
-              <>
-                <RootStack.Screen name="App" component={DrawerNavigator} />
-              </>
-            )}
-          </RootStack.Group>
-
-          <RootStack.Group
-          // screenOptions={{
-          //   gestureEnabled: true,
-          // }}
-          >
-            <RootStack.Screen name="Tx" component={TxNavigator} />
-          </RootStack.Group>
-        </>
+        <RootStack.Group>
+          {status !== 'signOut' ? (
+            <RootStack.Screen name="Auth" component={AuthNavigator} />
+          ) : (
+            <RootStack.Screen name="App" component={DrawerNavigator} />
+          )}
+        </RootStack.Group>
       )}
+
+      <RootStack.Group>
+        <RootStack.Screen name="Tx" component={TxNavigator} />
+      </RootStack.Group>
+
       <RootStack.Group
         screenOptions={{
           presentation: 'modal',

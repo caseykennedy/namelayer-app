@@ -10,6 +10,7 @@ export type NodeSlice = {
   time: number;
   setInfo: (hash: string, height: number, time: number) => void;
   fetchLatestBlock: () => Promise<void>;
+  testPut: () => Promise<void>;
 };
 
 export const createNodeSlice: StateCreator<
@@ -42,11 +43,17 @@ export const createNodeSlice: StateCreator<
       const { hash, height, time } = block || {};
 
       get().setInfo(hash, height, time);
-
-      console.log('fetchLatestBlock', hash, height, time);
     } catch (e) {
       console.warn('fetchLatestBlock', e);
     }
+  },
+  testPut: async () => {
+    const apiHost = get().apiHost;
+    const apiKey = get().apiKey;
+
+    const nodeClient = new NodeClient({ apiHost, apiKey });
+
+    await nodeClient.testPut();
   },
 });
 

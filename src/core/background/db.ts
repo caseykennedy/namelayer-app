@@ -1,5 +1,5 @@
-const bdb = require('bdb');
-const DB = require('bdb/lib/db');
+import bdb from 'bdb';
+import type DB from 'bdb/lib/db';
 
 let db: typeof DB;
 
@@ -42,7 +42,7 @@ export async function del(key: string) {
   return db.del(Buffer.from(key, 'utf-8'));
 }
 
-export async function iteratePrefix(prefix, cb) {
+export async function iteratePrefix(prefix: string, cb: () => void) {
   const gt = Buffer.from(prefix, 'utf-8');
   const iter = db.iterator({
     gt,

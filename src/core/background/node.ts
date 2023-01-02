@@ -1,6 +1,7 @@
-import { get, put } from '@/utils/db';
 const bdb = require('bdb');
 const DB = require('bdb/lib/db');
+
+import { get, put } from '@/utils/db';
 const rules = require('hsd/lib/covenants/rules');
 const { states, statesByVal } = require('hsd/lib/covenants/namestate');
 const Network = require('hsd/lib/protocol/network');
@@ -24,7 +25,19 @@ export default class NodeClient {
   constructor(options: NodeServiceOptions) {
     this.apiHost = options.apiHost;
     this.apiKey = options.apiKey;
-    this.store = bdb.create('/node-store');
+  }
+
+  async testPut() {
+    await this.start();
+    // await this.store.open();
+    // await put(this.store, 'test', '00');
+    // await this.store.close();
+    try {
+      // await this.store.open();
+      console.log('store:::', this.store);
+    } catch (e) {
+      console.error('BG-testPut:::::::::', e);
+    }
   }
 
   async getHeaders(): Promise<any> {
@@ -94,11 +107,8 @@ export default class NodeClient {
   }
 
   async getBlockByHeight(blockHeight: number) {
-    // await this.store.open();
     // const cachedEntry = await get(this.store, `blockdata-${blockHeight}`);
     // if (cachedEntry) return cachedEntry;
-
-    console.log('db::', this.store);
 
     const headers = await this.getHeaders();
     const block = await this.fetch(`block/${blockHeight}`, {
@@ -290,7 +300,8 @@ export default class NodeClient {
 
   async start() {
     this.store = bdb.create('/node-store');
-    await this.store.open();
+    console.log('started');
+    // await this.store.open();
     this.network = Network.get(networkType);
   }
 
