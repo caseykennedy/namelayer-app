@@ -1,59 +1,80 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { SafeAreaView, Text, View } from 'dripsy';
-import React from 'react';
+import { Pressable, SafeAreaView, Text, View } from 'dripsy';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import type { RootStackParamList } from '@/navigation/types';
-import { Button } from '@/ui/components/button';
+import { Button, Input } from '@/ui';
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Terms'>;
+import { OnboardingFooter, OnboardingHeader, OnboardingLayout } from './layout';
 
-export const CreatePassword = ({ navigation }: ScreenProps) => {
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'CreatePassword'>;
+
+export const CreatePassword = ({ navigation, route }: ScreenProps) => {
+  const { termsAccepted, walletName } = route.params;
+  const [errorMessage, setErrorMessage] = useState('');
+  const [visible, setVisibility] = useState(false);
+  const [password, setPassword] = useState('');
+  const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    setPassword('');
+  }, []);
+
+  useEffect(() => {
+    console.log(password);
+  }, [password]);
+
+  const onChange = useCallback((newPassword: string) => {
+    const value = newPassword;
+    setErrorMessage('');
+    setIsValid(false);
+    if (value.length < 8) {
+      setErrorMessage('Password must be at least 8 characters.');
+      return;
+    } else {
+      setPassword(value);
+      setIsValid(true);
+    }
+  }, []);
+
   return (
-    <View
-      sx={{
-        flex: 1,
-        backgroundColor: 'bg.800',
-      }}
-    >
+    <OnboardingLayout>
+      <OnboardingHeader
+        title="Create your password"
+        message="Passwords must be at least 8 characters long."
+      />
+
       <SafeAreaView sx={{ flex: 1 }}>
-        <View
-          sx={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Text variants={['xxl', 'medium', 'centered']}>Create Password</Text>
+        <View>
+          <Input
+            autoCapitalize="none"
+            onChangeText={(newPassword) => onChange(newPassword)}
+            error={errorMessage}
+            label="Password"
+            placeholder="********"
+            secureTextEntry={visible ? false : true}
+          />
+          <Pressable onPress={() => setVisibility(!visible)}>
+            <Text>{visible ? 'hide' : 'show'} password</Text>
+          </Pressable>
         </View>
-        <View
-          sx={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            px: 'lg',
-          }}
-        >
+
+        <OnboardingFooter>
           <Button
-            sx={{
-              alignItems: 'center',
-              px: 'md',
-              py: 'sm',
-              mb: 'md',
-
-              bg: 'purple.700',
-              borderRadius: 'xs',
-              borderStyle: 'solid',
-              borderColor: 'border.dark',
-              borderWidth: 1,
-
-              width: '100%',
-            }}
-            onPress={() => navigation.navigate('SeedWarning')}
+            variant={isValid ? 'primary' : 'default'}
+            disabled={!isValid}
+            onPress={() =>
+              navigation.navigate('SeedWarning', {
+                termsAccepted,
+                walletName,
+                password,
+              })
+            }
           >
             <Text>seed warning</Text>
           </Button>
-        </View>
+        </OnboardingFooter>
       </SafeAreaView>
-    </View>
+    </OnboardingLayout>
   );
 };

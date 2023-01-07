@@ -3,6 +3,21 @@ import { makeTheme } from 'dripsy';
 import { colors } from './colors';
 import { fontName, monoFontName } from './fonts';
 
+const baseButton = {
+  alignItems: 'center',
+  px: 'sm',
+  py: 'sm',
+  mb: 'xs',
+
+  bg: 'bg.900',
+  borderRadius: 'sm',
+  borderStyle: 'solid',
+  borderColor: 'border.light',
+  borderWidth: 1,
+
+  width: '100%',
+};
+
 export const theme = makeTheme({
   colors,
   space: {
@@ -18,7 +33,7 @@ export const theme = makeTheme({
     xxl: 128,
     xxxl: 256,
     xxxxl: 512,
-    gutter: 12,
+    gutter: 16,
   },
   customFonts: {
     [fontName]: {
@@ -76,7 +91,7 @@ export const theme = makeTheme({
     centered: { textAlign: 'center' },
 
     muted: { color: 'muted' },
-    error: { color: 'red' },
+    error: { color: 'danger.500' },
 
     xxxs: { fontSize: 'xxxs' },
     xxs: { fontSize: 'xxs' },
@@ -88,24 +103,27 @@ export const theme = makeTheme({
     xxl: { fontSize: 'xxl' },
     xxxl: { fontSize: 'xxxl' },
   },
-  // buttons: {
-  //   primary: {
-  //     px: 'md',
+  button: {
+    default: {
+      ...baseButton,
+    },
+    primary: {
+      ...baseButton,
+      bg: 'primary',
+      borderColor: 'border.dark',
+    },
+  },
+  // forms: {
+  //   input: {
+  //     alignItems: 'center',
+  //     px: 'sm',
   //     py: 'sm',
-
-  //     bg: 'bg.800',
+  //     // mb: 'xs',
+  //     bg: 'bg.900',
   //     borderRadius: 'sm',
   //     borderStyle: 'solid',
-  //     borderColor: 'border.dark',
+  //     // borderColor: 'border.light',
   //     borderWidth: 1,
-
-  //     width: '100%',
-
-  //     label: {
-  //       color: 'muted',
-  //     },
-  //   },
-  //   fullWidth: {
   //     width: '100%',
   //   },
   // },
@@ -135,6 +153,7 @@ export const theme = makeTheme({
     md: 16,
     lg: 24,
     xl: 32,
+    xxl: 48,
   },
   textShadows: {
     onImage: {
@@ -151,7 +170,7 @@ export const theme = makeTheme({
   },
   layout: {
     container: {
-      backgroundColor: 'bg.900',
+      flex: 1,
       maxWidth: 'container',
     },
   },

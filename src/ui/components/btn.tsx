@@ -1,9 +1,9 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
+// import Ionicons from '@expo/vector-icons/Ionicons';
 import type { Theme as DripsyTheme } from 'dripsy';
 import { ActivityIndicator, Text, useDripsyTheme, View } from 'dripsy';
 import type { ComponentProps } from 'react';
 import React from 'react';
-import { Platform, Pressable, StyleSheet } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 
 type Props = {
   children?: React.ReactNode | string;
@@ -27,7 +27,7 @@ type Props = {
 
 const textKeys = ['color', 'fontSize', 'fontWeight', 'textTransform'];
 
-export default function Button(props: Props) {
+export default function Btn(props: Props) {
   const {
     children = null,
     variant = 'primary',
@@ -70,10 +70,10 @@ export default function Button(props: Props) {
     label: {},
   };
 
-  if (resolvedIconLeft?.name && resolvedIconLeft.color) {
-    resolvedIconLeft.color = (theme.colors?.[resolvedIconLeft.color] ||
-      resolvedIconLeft.color) as string;
-  }
+  // if (resolvedIconLeft?.name && resolvedIconLeft.color) {
+  //   resolvedIconLeft.color = (theme.colors?.[resolvedIconLeft.color] ||
+  //     resolvedIconLeft.color) as string;
+  // }
   const loaderColor =
     loadingColor ??
     (resolvedLabelSx as any)?.color ??
@@ -91,15 +91,6 @@ export default function Button(props: Props) {
   return (
     <Pressable
       disabled={loading || disabled}
-      style={Platform.select({
-        web: ({ hovered }) => ({
-          transitionProperty: 'transform',
-          transitionDuration: '0.25s',
-          transitionTimingFunction: 'ease-in-out',
-          transform: [{ scale: hovered && !disabled && onPress ? 1.04 : 1 }],
-        }),
-        default: undefined,
-      })}
       {...touchableProps}
       onPress={onPress}
       hitSlop={hitSlop}
@@ -109,30 +100,30 @@ export default function Button(props: Props) {
       <View
         {...viewProps}
         sx={{
-          flexDirection: iconLeft ? 'row' : undefined,
+          flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
           ...variantStyle,
           ...resolvedSx,
         }}
       >
-        {!!resolvedIconLeft?.name && (
+        {/* {!!resolvedIconLeft?.name && (
           <View sx={{ mr: children ? 2 : 0 }}>
             <Ionicons {...resolvedIconLeft} />
           </View>
-        )}
+        )} */}
         {loading && (
           <View
             sx={{ ...StyleSheet.absoluteFillObject, justifyContent: 'center' }}
           >
-            <ActivityIndicator color={theme.colors?.[loaderColor] as string} />
+            <ActivityIndicator color="primary" />
           </View>
         )}
         {isText && children ? (
           <Text
             {...labelProps}
             sx={{
-              textAlign: 'center',
+              textAlign: 'left',
               ...labelStyle,
               ...resolvedLabelSx,
             }}

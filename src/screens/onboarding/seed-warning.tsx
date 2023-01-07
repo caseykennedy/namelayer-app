@@ -1,59 +1,79 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { SafeAreaView, Text, View } from 'dripsy';
-import React from 'react';
+import { Pressable, SafeAreaView, Text, View } from 'dripsy';
+import React, { useState } from 'react';
 
 import type { RootStackParamList } from '@/navigation/types';
 import { Button } from '@/ui/components/button';
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Terms'>;
+import { OnboardingFooter, OnboardingHeader, OnboardingLayout } from './layout';
 
-export const SeedWarning = ({ navigation }: ScreenProps) => {
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SeedWarning'>;
+
+export const SeedWarning = ({ navigation, route }: ScreenProps) => {
+  const { termsAccepted, walletName, password } = route.params;
+  const [accepted, setAccepted] = useState(false);
+  const isImporting = false;
+
   return (
-    <View
-      sx={{
-        flex: 1,
-        backgroundColor: 'bg.800',
-      }}
-    >
+    <OnboardingLayout>
+      <OnboardingHeader
+        title={
+          isImporting
+            ? 'Import your recovery seed phrase.'
+            : 'Please be sure to back up your recovery seed phrase.'
+        }
+        message={
+          isImporting
+            ? 'Entering your seed on any website is dangerous. You could lose all your funds if you accidentally visit a phishing website or if your computer is compromised.'
+            : 'Your seed phrase will be generated in the next screen. It will allow you to recover your wallet if lost, stolen, or compromised.'
+        }
+      />
       <SafeAreaView sx={{ flex: 1 }}>
         <View
           sx={{
             flex: 1,
+            flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
           }}
         >
-          <Text variants={['xxl', 'medium', 'centered']}>Seed Warning</Text>
-        </View>
-        <View
-          sx={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            px: 'lg',
-          }}
-        >
-          <Button
+          <Pressable
             sx={{
               alignItems: 'center',
-              px: 'md',
-              py: 'sm',
-              mb: 'md',
-
-              bg: 'purple.700',
-              borderRadius: 'xs',
-              borderStyle: 'solid',
-              borderColor: 'border.dark',
-              borderWidth: 1,
-
-              width: '100%',
+              justifyContent: 'center',
+              bg: accepted ? 'purple.700' : 'purple.800',
+              borderRadius: 'full',
+              mr: 'gutter',
+              height: 42,
+              width: 42,
             }}
-            onPress={() => navigation.navigate('RevealSeed')}
+            onPress={() => setAccepted(!accepted)}
           >
-            <Text>reveal seed</Text>
-          </Button>
+            <Text>•</Text>
+          </Pressable>
+          <Text>
+            {isImporting
+              ? 'I understand the risks, let me enter my seed phrase.'
+              : 'I understand that if I lose my seed phrase, I will no longer be able to access my wallet.'}
+          </Text>
         </View>
+
+        <OnboardingFooter>
+          <Button
+            variant={accepted ? 'primary' : 'default'}
+            disabled={!accepted}
+            onPress={() =>
+              navigation.navigate('RevealSeed', {
+                termsAccepted,
+                walletName,
+                password,
+              })
+            }
+          >
+            Next
+          </Button>
+        </OnboardingFooter>
       </SafeAreaView>
-    </View>
+    </OnboardingLayout>
   );
 };

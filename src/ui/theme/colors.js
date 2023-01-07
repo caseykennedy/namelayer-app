@@ -1,14 +1,14 @@
 export const colors = {
   black: '#000000',
   white: '#ffffff',
-  primary: '#3C40A4',
+  primary: '#695A35',
   secondary: '',
   accent: '',
   text: 'hsla(240, 5%, 91%, 1)',
   muted: 'hsla(240, 7%, 60%, 1)',
   border: {
-    light: 'hsla(240, 7%, 18%, 1)',
-    dark: 'hsla(240, 14%, 3%, 1)',
+    light: 'hsla(240, 10%, 28%, 1)',
+    dark: 'hsla(240, 14%, 2%, 1)',
   },
   bg: {
     100: 'hsla(240, 14%, 62%, 1)',
@@ -28,7 +28,7 @@ export const colors = {
     400: '#826FB4',
     500: '#67529D',
     600: '#51417C',
-    700: '#3C40A4',
+    700: '#3B2F5A',
     800: '#251E39',
     900: '#0F0C17',
   },

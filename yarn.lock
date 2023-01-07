@@ -11406,6 +11406,11 @@ react-native-level-fs@^3.0.0:
     level-filesystem "^1.0.1"
     levelup "^0.18.2"
 
+react-native-leveldb@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-leveldb/-/react-native-leveldb-3.0.6.tgz#ea30ce75abcc65f1c06b161405fff24e66722262"
+  integrity sha512-gA+7awtJZxs4wVFBcEFirz3DK/0KIo+wWjR1cCeWc46VcEek5gf/4jB4LWjv7xjpuXjk4xijPu+StHThIgNh8A==
+
 react-native-mmkv@^2.4.3:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/react-native-mmkv/-/react-native-mmkv-2.5.1.tgz#29fc462077fab16a5e1b79570fbf8acaac9d87b4"

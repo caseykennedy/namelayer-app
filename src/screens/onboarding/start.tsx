@@ -27,66 +27,60 @@ export const Start = ({ navigation }: ScreenProps) => {
         backgroundColor: 'bg.700',
       }}
     >
-      <SafeAreaView sx={{ flex: 1 }}>
-        <View
-          sx={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Text variants={['xxl', 'medium', 'centered']}>Namelayer</Text>
-        </View>
-
-        <View
-          sx={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            px: 'lg',
-          }}
-        >
-          <Button
+      <View
+        sx={{
+          flex: 3,
+          backgroundColor: 'bg.900',
+          borderRadius: 'xxl',
+          overflow: 'hidden',
+        }}
+      >
+        <SafeAreaView sx={{ flex: 1 }}>
+          <View
             sx={{
+              flex: 1,
               alignItems: 'center',
-              px: 'md',
-              py: 'sm',
-              mb: 'xs',
-
-              bg: 'bg.900',
-              borderRadius: 'xs',
-              borderStyle: 'solid',
-              borderColor: 'border.light',
-              borderWidth: 1,
-
-              width: '100%',
-            }}
-            onPress={() => {
-              setIsFirstTime(true);
+              justifyContent: 'center',
+              p: 'gutter',
             }}
           >
-            <Text>import wallet</Text>
-          </Button>
-          <Button
+            <Text variants={['xxl', 'medium', 'centered']}>Namelayer</Text>
+          </View>
+        </SafeAreaView>
+      </View>
+
+      <View
+        sx={{
+          flex: 1,
+          backgroundColor: 'bg.700',
+        }}
+      >
+        <SafeAreaView sx={{ flex: 1 }}>
+          <View
             sx={{
+              flex: 1,
               alignItems: 'center',
-              px: 'md',
-              py: 'sm',
-
-              bg: 'purple.700',
-              borderRadius: 'xs',
-              borderStyle: 'solid',
-              borderColor: 'border.dark',
-              borderWidth: 1,
-
-              width: '100%',
+              justifyContent: 'flex-end',
+              bg: 'bg.700',
+              p: 'gutter',
             }}
-            onPress={() => navigation.navigate('Terms')}
           >
-            <Text>create new wallet</Text>
-          </Button>
-        </View>
-      </SafeAreaView>
+            <Button
+              onPress={() => {
+                setIsFirstTime(true);
+              }}
+            >
+              import wallet
+            </Button>
+            <Button
+              variant="primary"
+              onPress={() => navigation.navigate('Terms')}
+            >
+              create new wallet
+            </Button>
+          </View>
+        </SafeAreaView>
+      </View>
     </View>
   );
 };

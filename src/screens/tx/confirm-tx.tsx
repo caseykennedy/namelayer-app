@@ -11,8 +11,6 @@ type ScreenProps = NativeStackScreenProps<RootStackParamList>;
 export const ConfirmTx = ({ route, navigation }: ScreenProps) => {
   const nav = useNavigation();
 
-  console.log('ConfirmTxProps:', route, navigation);
-
   return (
     <View sx={{ flex: 1, backgroundColor: 'bg.800' }}>
       <Text

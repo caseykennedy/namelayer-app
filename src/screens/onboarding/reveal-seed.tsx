@@ -1,59 +1,60 @@
+// const Mnemonic = require('hsd/lib/hd/mnemonic');
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { SafeAreaView, Text, View } from 'dripsy';
-import React from 'react';
+import { SafeAreaView } from 'dripsy';
+import React, { useEffect, useState } from 'react';
 
 import type { RootStackParamList } from '@/navigation/types';
 import { Button } from '@/ui/components/button';
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Terms'>;
+import { OnboardingFooter, OnboardingHeader, OnboardingLayout } from './layout';
 
-export const RevealSeed = ({ navigation }: ScreenProps) => {
+const seeds =
+  'strong quaint judge oak sticky end fair cruel hole snarl impact linger bar fool tube symbol velvet food lily bother coerce ditch canvas agree';
+
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SeedWarning'>;
+
+export const RevealSeed = ({ navigation, route }: ScreenProps) => {
+  const { termsAccepted, walletName, password } = route.params;
+  const [seedphrase, setSeedphrase] = useState('');
+
+  useEffect(() => {
+    setSeedphrase(seeds);
+  }, []);
+
+  // useEffect(() => {
+  //   (async function onRevealSeedphraseMount() {
+  //     try {
+  //       const mnemonic = await new Mnemonic({ bits: 256 }).getPhrase().trim();
+  //       setSeedphrase(mnemonic);
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //   })();
+  // }, []);
+
   return (
-    <View
-      sx={{
-        flex: 1,
-        backgroundColor: 'bg.800',
-      }}
-    >
+    <OnboardingLayout>
+      <OnboardingHeader
+        title="Your Recovery Seed Phrase"
+        message="Write down these 24 words on paper and keep it safe and secure. Do not email or screenshot your seed."
+      />
       <SafeAreaView sx={{ flex: 1 }}>
-        <View
-          sx={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Text variants={['xxl', 'medium', 'centered']}>Reveal Seed</Text>
-        </View>
-        <View
-          sx={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            px: 'lg',
-          }}
-        >
+        <OnboardingFooter>
           <Button
-            sx={{
-              alignItems: 'center',
-              px: 'md',
-              py: 'sm',
-              mb: 'md',
-
-              bg: 'purple.700',
-              borderRadius: 'xs',
-              borderStyle: 'solid',
-              borderColor: 'border.dark',
-              borderWidth: 1,
-
-              width: '100%',
-            }}
-            onPress={() => navigation.navigate('ConfirmSeed')}
+            variant="primary"
+            onPress={() =>
+              navigation.navigate('ConfirmSeed', {
+                termsAccepted,
+                walletName,
+                password,
+                seedphrase,
+              })
+            }
           >
-            <Text>confirm seed</Text>
+            Continue
           </Button>
-        </View>
+        </OnboardingFooter>
       </SafeAreaView>
-    </View>
+    </OnboardingLayout>
   );
 };

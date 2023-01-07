@@ -48,11 +48,7 @@ export const LoginForm = ({ onSubmit = () => {} }: Props) => {
         placeholder="***"
         secureTextEntry={true}
       />
-      <Button
-        testID="login-button"
-        label="Login"
-        onPress={handleSubmit(onSubmit)}
-      />
+      <Button onPress={handleSubmit(onSubmit)}>Login</Button>
     </View>
   );
 };

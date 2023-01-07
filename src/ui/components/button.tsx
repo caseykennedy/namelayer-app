@@ -1,56 +1,54 @@
-import { ActivityIndicator, Pressable } from 'dripsy';
+import type { Theme as DripsyTheme } from 'dripsy';
+import { ActivityIndicator, styled, Text, View } from 'dripsy';
+import type { ComponentProps } from 'react';
 import React from 'react';
-import type { PressableProps } from 'react-native';
+import { Pressable as NPressable, StyleSheet } from 'react-native';
 
-// type Variant = {
-//   container: string;
-//   label: string;
-//   indicator: string;
-// };
-// type VariantName = 'defaults' | 'primary' | 'outline' | 'secondary';
-// type BVariant = {
-//   [key in VariantName]: Variant;
-// };
+export const Pressable = styled(NPressable, {
+  defaultVariant: 'default',
+  themeKey: 'button',
+})();
 
-// export const buttonVariants: BVariant = {
-//   defaults: {
-//     container:
-//       'flex-row items-center justify-center rounded-full px-12 py-3 my-2',
-//     label: 'text-[16px] font-medium text-white',
-//     indicator: 'text-white h-[30px]',
-//   },
-//   primary: {
-//     container: 'bg-black',
-//     label: '',
-//     indicator: 'text-white',
-//   },
-//   secondary: {
-//     container: 'bg-primary-600',
-//     label: 'text-secondary-600',
-//     indicator: 'text-white',
-//   },
-//   outline: {
-//     container: 'border border-neutral-400',
-//     label: 'text-black',
-//     indicator: 'text-black',
-//   },
-// };
-
-interface Props extends PressableProps {
-  children: React.ReactNode;
+type Props = {
+  children?: React.ReactNode;
+  variant?: keyof DripsyTheme['button'];
+  onPress?: ComponentProps<typeof NPressable>['onPress'];
+  pressableProps?: ComponentProps<typeof NPressable>;
+  labelProps?: ComponentProps<typeof Text>;
   loading?: boolean;
-  sx?: any;
-}
+  disabled?: boolean;
+};
 
 export const Button = ({
   children,
+  variant,
+  onPress,
+  pressableProps,
+  labelProps,
   loading = false,
   disabled = false,
-  ...props
 }: Props) => {
   return (
-    <Pressable disabled={disabled || loading} {...props}>
-      {loading ? <ActivityIndicator size="small" /> : children}
+    <Pressable
+      disabled={loading || disabled}
+      variant={variant}
+      onPress={onPress}
+      {...pressableProps}
+    >
+      {loading ? (
+        <View
+          sx={{ ...StyleSheet.absoluteFillObject, justifyContent: 'center' }}
+        >
+          <ActivityIndicator color="white" />
+        </View>
+      ) : (
+        <Text
+          {...labelProps}
+          sx={{ color: variant === 'primary' ? 'text' : 'muted' }}
+        >
+          {children}
+        </Text>
+      )}
     </Pressable>
   );
 };

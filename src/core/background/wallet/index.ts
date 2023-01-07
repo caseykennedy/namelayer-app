@@ -98,7 +98,7 @@ class WalletService extends GenericService {
   lockWallet = async () => {
     const wallet = await this.wdb.get(this.selectedID);
     await wallet.lock();
-    this.emit('locked');
+    // this.emit('locked');
     this.passphrase = undefined;
     this.locked = true;
   };
@@ -109,7 +109,7 @@ class WalletService extends GenericService {
     this.passphrase = password;
     this.locked = false;
     await wallet.lock();
-    this.emit('unlocked', this.selectedID);
+    // this.emit('unlocked', this.selectedID);
   };
 
   getState = async () => {
@@ -169,7 +169,7 @@ class WalletService extends GenericService {
     if (this.selectedID !== id) {
       const wallet = await this.wdb.get(id);
       await wallet.lock();
-      this.emit('locked');
+      // this.emit('locked');
       this.selectedAccount = 'default';
       this.transactions = null;
       this.domains = null;
@@ -1215,14 +1215,14 @@ class WalletService extends GenericService {
 
   rejectTx = async (txJSON: any) => {
     await this.removeTxFromQueue(txJSON);
-    this.emit('txRejected', txJSON);
+    // this.emit('txRejected', txJSON);
     const action = getTXAction(txJSON);
-    this.exec('analytics', 'track', {
-      name: 'Reject',
-      data: {
-        action,
-      },
-    });
+    // this.exec('analytics', 'track', {
+    //   name: 'Reject',
+    //   data: {
+    //     action,
+    //   },
+    // });
   };
 
   submitTx = async (opts: {
@@ -1817,7 +1817,7 @@ class WalletService extends GenericService {
             'getLatestBlock'
           );
           await pushMessage(setInfo(hash, height, time));
-          this.emit('newBlock', { hash, height, time });
+          // this.emit('newBlock', { hash, height, time });
         })(),
       ONE_MINUTE
     );

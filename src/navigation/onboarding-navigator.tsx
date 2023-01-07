@@ -22,11 +22,32 @@ export type OnboardingParamList = {
   WalletName: {
     termsAccepted: boolean;
   };
-  CreatePassword: undefined;
-  SeedWarning: undefined;
-  RevealSeed: undefined;
-  ConfirmSeed: undefined;
-  OptInAnalytics: undefined;
+  CreatePassword: {
+    termsAccepted: boolean;
+    walletName: string;
+  };
+  SeedWarning: {
+    termsAccepted: boolean;
+    walletName: string;
+    password: string;
+  };
+  RevealSeed: {
+    termsAccepted: boolean;
+    walletName: string;
+    password: string;
+  };
+  ConfirmSeed: {
+    termsAccepted: boolean;
+    walletName: string;
+    password: string;
+    seedphrase: string;
+  };
+  OptInAnalytics: {
+    termsAccepted: boolean;
+    walletName: string;
+    password: string;
+    seedphrase: string;
+  };
 };
 
 type OnboardType = {
@@ -51,7 +72,7 @@ const tabs: OnboardType[] = [
   {
     name: 'Terms',
     component: Terms,
-    label: 'Terms',
+    label: 'Terms of use',
   },
   {
     name: 'WalletName',
@@ -66,17 +87,17 @@ const tabs: OnboardType[] = [
   {
     name: 'SeedWarning',
     component: SeedWarning,
-    label: 'Seed Warning',
+    label: 'Seed Phrase Warning',
   },
   {
     name: 'RevealSeed',
     component: RevealSeed,
-    label: 'Reveal Seed',
+    label: 'Reveal Seed Phrase',
   },
   {
     name: 'ConfirmSeed',
     component: ConfirmSeed,
-    label: 'Confirm Seed',
+    label: 'Confirm Seedphrase',
   },
   {
     name: 'OptInAnalytics',
@@ -94,7 +115,7 @@ export const OnboardingNavigator = () => {
         gestureEnabled: true,
         headerShown: true,
         headerStyle: {
-          backgroundColor: theme.colors.bg[800],
+          backgroundColor: theme.colors.bg[900],
         },
         headerShadowVisible: true,
         headerBackTitleVisible: false,

@@ -1,9 +1,7 @@
-import { Text, View } from 'dripsy';
+import { Text, useDripsyTheme, useSx, View } from 'dripsy';
 import * as React from 'react';
 import type { TextInputProps } from 'react-native';
 import { TextInput } from 'react-native';
-
-import { colors } from '../../theme';
 
 export interface NInputProps extends TextInputProps {
   label?: string;
@@ -13,26 +11,28 @@ export interface NInputProps extends TextInputProps {
 
 export const Input = React.forwardRef<TextInput, NInputProps>((props, ref) => {
   const { label, error, ...inputProps } = props;
+  const { colors } = useDripsyTheme().theme;
+  const sx = useSx();
 
-  // eslint-disable-next-line unused-imports/no-unused-vars
   const [isFocussed, setIsFocussed] = React.useState(false);
   const onBlur = React.useCallback(() => setIsFocussed(false), []);
   const onFocus = React.useCallback(() => setIsFocussed(true), []);
 
-  // const borderColor = error
-  //   ? 'border-danger-600'
-  //   : isFocussed
-  //   ? 'border-neutral-600'
-  //   : 'border-neutral-400';
+  const borderColor = error
+    ? colors.danger[500]
+    : isFocussed
+    ? colors.purple[500]
+    : colors.border.light;
 
   // const bgColor = error ? 'bg-danger-50' : 'bg-neutral-200';
-  // const textDirection = isRTL ? 'text-right' : 'text-left';
   return (
     <View>
       {label && (
         <Text
-          variant="md"
-          // className={error ? 'text-danger-600' : 'text-black'}
+          variant="sm"
+          sx={{
+            mb: 'xs',
+          }}
         >
           {label}
         </Text>
@@ -41,13 +41,22 @@ export const Input = React.forwardRef<TextInput, NInputProps>((props, ref) => {
         testID="STextInput"
         ref={ref}
         placeholderTextColor={colors.muted}
-        // className={`mt-0 border-[1px] py-4 px-2  ${borderColor} rounded-md ${bgColor} text-[16px] ${textDirection}`}
+        style={sx({
+          alignItems: 'center',
+          px: 'sm',
+          py: 'sm',
+          mb: 'xs',
+          bg: 'bg.900',
+          borderRadius: 'sm',
+          borderStyle: 'solid',
+          borderColor,
+          borderWidth: 1,
+          color: 'text',
+          width: '100%',
+        })}
         onBlur={onBlur}
         onFocus={onFocus}
         {...inputProps}
-        // style={StyleSheet.flatten([
-        //   { writingDirection: isRTL ? 'rtl' : 'ltr' },
-        // ])}
       />
       {error && <Text variant="error">{error}</Text>}
     </View>

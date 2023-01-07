@@ -1,59 +1,83 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { SafeAreaView, Text, View } from 'dripsy';
-import React from 'react';
+import { SafeAreaView, View } from 'dripsy';
+import React, { useCallback, useState } from 'react';
 
 import type { RootStackParamList } from '@/navigation/types';
-import { Button } from '@/ui/components/button';
+import { Button, Input } from '@/ui';
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Terms'>;
+import { OnboardingFooter, OnboardingHeader, OnboardingLayout } from './layout';
 
-export const WalletName = ({ navigation }: ScreenProps) => {
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'WalletName'>;
+
+export const WalletName = ({ navigation, route }: ScreenProps) => {
+  const { termsAccepted } = route.params;
+  // const walletIDs = useStore.use.walletIDs();
+  const walletIDs = React.useMemo(() => ['secondary', 'tertiary', 'c'], []);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [walletName, setWalletName] = useState('');
+  const [isValid, setIsValid] = useState(false);
+
+  const onChange = useCallback(
+    (newText: string) => {
+      const value = newText;
+      setErrorMessage('');
+
+      if (value && !/^[A-Za-z0-9]+$/i.test(value)) {
+        setErrorMessage('Can only contain letters and numbers');
+        setIsValid(false);
+      } else if (walletIDs.includes(value)) {
+        setErrorMessage(`"${value}" already exists`);
+        setIsValid(false);
+      } else if (value === 'primary') {
+        setErrorMessage('Cannot set wallet id to "primary"');
+        setIsValid(false);
+      } else if (value.length === 0) {
+        setIsValid(false);
+      } else {
+        setIsValid(true);
+        setWalletName(value);
+      }
+    },
+    [walletIDs]
+  );
+
+  React.useEffect(() => {
+    console.log(walletName);
+  }, [walletName]);
   return (
-    <View
-      sx={{
-        flex: 1,
-        backgroundColor: 'bg.800',
-      }}
-    >
+    <OnboardingLayout>
+      <OnboardingHeader
+        title="Name your wallet"
+        message="Wallet names may contain only alphanumeric lowercase characters."
+      />
+
       <SafeAreaView sx={{ flex: 1 }}>
-        <View
-          sx={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Text variants={['xxl', 'medium', 'centered']}>Wallet Name</Text>
-        </View>
-        <View
-          sx={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            px: 'lg',
-          }}
-        >
+        <OnboardingFooter>
+          <View sx={{ width: '100%' }}>
+            <Input
+              autoCapitalize="none"
+              onChangeText={(newText) => onChange(newText)}
+              defaultValue={walletName}
+              error={errorMessage}
+              label="Wallet name"
+              placeholder="MyWallet"
+            />
+          </View>
+
           <Button
-            sx={{
-              alignItems: 'center',
-              px: 'md',
-              py: 'sm',
-              mb: 'md',
-
-              bg: 'purple.700',
-              borderRadius: 'xs',
-              borderStyle: 'solid',
-              borderColor: 'border.dark',
-              borderWidth: 1,
-
-              width: '100%',
-            }}
-            onPress={() => navigation.navigate('CreatePassword')}
+            variant={isValid ? 'primary' : 'default'}
+            disabled={!isValid}
+            onPress={() =>
+              navigation.navigate('CreatePassword', {
+                termsAccepted: termsAccepted,
+                walletName: walletName,
+              })
+            }
           >
-            <Text>create password</Text>
+            continue
           </Button>
-        </View>
+        </OnboardingFooter>
       </SafeAreaView>
-    </View>
+    </OnboardingLayout>
   );
 };

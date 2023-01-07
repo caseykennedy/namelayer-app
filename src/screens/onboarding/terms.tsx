@@ -5,17 +5,15 @@ import React, { useState } from 'react';
 import type { RootStackParamList } from '@/navigation/types';
 import { Button } from '@/ui/components/button';
 
+import { OnboardingFooter, OnboardingLayout } from './layout';
+import TermsOfUse from './terms-of-use';
+
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Terms'>;
 
 export const Terms = ({ navigation }: ScreenProps) => {
   const [accepted, setAccepted] = useState(false);
   return (
-    <View
-      sx={{
-        flex: 1,
-        backgroundColor: 'bg.800',
-      }}
-    >
+    <OnboardingLayout>
       <SafeAreaView sx={{ flex: 1 }}>
         <View
           sx={{
@@ -24,11 +22,14 @@ export const Terms = ({ navigation }: ScreenProps) => {
             justifyContent: 'center',
           }}
         >
-          <Text variants={['xxl', 'medium', 'centered']}>Terms</Text>
+          <Text>Please review and accept our terms.</Text>
         </View>
+
+        <TermsOfUse />
 
         <View
           sx={{
+            flex: 1,
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
@@ -38,9 +39,11 @@ export const Terms = ({ navigation }: ScreenProps) => {
             sx={{
               alignItems: 'center',
               justifyContent: 'center',
-              p: 'sm',
               bg: accepted ? 'purple.700' : 'purple.800',
               borderRadius: 'full',
+              mr: 'gutter',
+              height: 42,
+              width: 42,
             }}
             onPress={() => setAccepted(!accepted)}
           >
@@ -49,38 +52,18 @@ export const Terms = ({ navigation }: ScreenProps) => {
           <Text>I accept the terms of use.</Text>
         </View>
 
-        <View
-          sx={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            px: 'lg',
-          }}
-        >
+        <OnboardingFooter>
           <Button
-            sx={{
-              alignItems: 'center',
-              px: 'md',
-              py: 'sm',
-              mb: 'md',
-
-              bg: accepted ? 'purple.700' : 'purple.800',
-              borderRadius: 'xs',
-              borderStyle: 'solid',
-              borderColor: 'border.dark',
-              borderWidth: 1,
-
-              width: '100%',
-            }}
+            variant={accepted ? 'primary' : 'default'}
             disabled={!accepted}
             onPress={() =>
               navigation.navigate('WalletName', { termsAccepted: accepted })
             }
           >
-            <Text>Next</Text>
+            Next
           </Button>
-        </View>
+        </OnboardingFooter>
       </SafeAreaView>
-    </View>
+    </OnboardingLayout>
   );
 };
