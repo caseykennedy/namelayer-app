@@ -9,6 +9,7 @@ import { DripsyProvider } from 'dripsy';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { Suspense, useEffect } from 'react';
 import FlashMessage from 'react-native-flash-message';
+import Toast from 'react-native-toast-message';
 
 import { APIProvider } from '@/api';
 import { hydrateAuth } from '@/core';
@@ -28,18 +29,21 @@ const App = () => {
   }, [fetchBlock]);
 
   return (
-    <Fonts>
-      <DripsyProvider theme={theme}>
-        <BottomSheetModalProvider>
-          <APIProvider>
-            <Suspense>
-              <RootNavigator />
-              <FlashMessage position="top" />
-            </Suspense>
-          </APIProvider>
-        </BottomSheetModalProvider>
-      </DripsyProvider>
-    </Fonts>
+    <>
+      <Fonts>
+        <DripsyProvider theme={theme}>
+          <BottomSheetModalProvider>
+            <APIProvider>
+              <Suspense>
+                <RootNavigator />
+                <FlashMessage position="top" />
+              </Suspense>
+            </APIProvider>
+          </BottomSheetModalProvider>
+        </DripsyProvider>
+      </Fonts>
+      <Toast />
+    </>
   );
 };
 

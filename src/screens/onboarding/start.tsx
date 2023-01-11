@@ -8,7 +8,7 @@ import { Button } from '@/ui/components/button';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Terms'>;
 
-export const Start = ({ navigation }: ScreenProps) => {
+export function Start({ navigation }: ScreenProps) {
   // const nav = useNavigation();
   // TODO: disable this rule for vars with underscore
   // eslint-disable-next-line unused-imports/no-unused-vars
@@ -24,7 +24,7 @@ export const Start = ({ navigation }: ScreenProps) => {
     <View
       sx={{
         flex: 1,
-        backgroundColor: 'bg.700',
+        backgroundColor: 'bg.600',
       }}
     >
       <View
@@ -52,7 +52,7 @@ export const Start = ({ navigation }: ScreenProps) => {
       <View
         sx={{
           flex: 1,
-          backgroundColor: 'bg.700',
+          backgroundColor: 'bg.600',
         }}
       >
         <SafeAreaView sx={{ flex: 1 }}>
@@ -61,7 +61,7 @@ export const Start = ({ navigation }: ScreenProps) => {
               flex: 1,
               alignItems: 'center',
               justifyContent: 'flex-end',
-              bg: 'bg.700',
+              bg: 'bg.600',
               p: 'gutter',
             }}
           >
@@ -83,4 +83,4 @@ export const Start = ({ navigation }: ScreenProps) => {
       </View>
     </View>
   );
-};
+}

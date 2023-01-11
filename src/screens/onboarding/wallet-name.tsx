@@ -9,7 +9,7 @@ import { OnboardingFooter, OnboardingHeader, OnboardingLayout } from './layout';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'WalletName'>;
 
-export const WalletName = ({ navigation, route }: ScreenProps) => {
+export function WalletName({ navigation, route }: ScreenProps) {
   const { termsAccepted } = route.params;
   // const walletIDs = useStore.use.walletIDs();
   const walletIDs = React.useMemo(() => ['secondary', 'tertiary', 'c'], []);
@@ -80,4 +80,4 @@ export const WalletName = ({ navigation, route }: ScreenProps) => {
       </SafeAreaView>
     </OnboardingLayout>
   );
-};
+}

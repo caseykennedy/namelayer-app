@@ -1,16 +1,16 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Pressable, SafeAreaView, Text, View } from 'dripsy';
+import { SafeAreaView, Text, View } from 'dripsy';
 import React, { useState } from 'react';
 
 import type { RootStackParamList } from '@/navigation/types';
-import { Button } from '@/ui/components/button';
+import { Button, Switch } from '@/ui';
 
 import { OnboardingFooter, OnboardingLayout } from './layout';
 import TermsOfUse from './terms-of-use';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Terms'>;
 
-export const Terms = ({ navigation }: ScreenProps) => {
+export function Terms({ navigation }: ScreenProps) {
   const [accepted, setAccepted] = useState(false);
   return (
     <OnboardingLayout>
@@ -32,24 +32,20 @@ export const Terms = ({ navigation }: ScreenProps) => {
             flex: 1,
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'center',
           }}
         >
-          <Pressable
+          <Switch
+            isEnabled={accepted}
+            onValueChange={() => setAccepted(!accepted)}
+            value={accepted}
+          />
+          <Text
             sx={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              bg: accepted ? 'purple.700' : 'purple.800',
-              borderRadius: 'full',
-              mr: 'gutter',
-              height: 42,
-              width: 42,
+              ml: 'gutter',
             }}
-            onPress={() => setAccepted(!accepted)}
           >
-            <Text>•</Text>
-          </Pressable>
-          <Text>I accept the terms of use.</Text>
+            I accept the terms of use.
+          </Text>
         </View>
 
         <OnboardingFooter>
@@ -66,4 +62,4 @@ export const Terms = ({ navigation }: ScreenProps) => {
       </SafeAreaView>
     </OnboardingLayout>
   );
-};
+}

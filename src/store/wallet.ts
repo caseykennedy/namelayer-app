@@ -1,21 +1,22 @@
-import create from 'zustand';
+import type { StateCreator } from 'zustand';
 
-import createSelectors from '@/utils/create-selectors';
+// import WalletClient from '@/core/background/wallet';
+import type { AppSlice } from './app';
+import type { NodeSlice } from './node';
 
-type CreateWalletShape = {
+export type CreateWalletShape = {
   walletName: string;
   seedphrase: string;
   password: string;
   optIn: boolean;
 };
 
-type WalletBalanceShape = {
+export type WalletBalanceShape = {
   unconfirmed: number;
   lockedUnconfirmed: number;
 };
 
-type WalletState = {
-  createWalletOptions: CreateWalletShape;
+export type WalletSlice = {
   wallets: {
     accountDepth: number;
     encrypted: string;
@@ -65,19 +66,40 @@ type WalletState = {
   setReceiveAddress: (receiveAddress: string) => void;
 };
 
-export const useWalletBase = create<WalletState>((set) => ({
-  createWalletOptions: {
-    walletName: '',
-    seedphrase: '',
-    password: '',
-    optIn: false,
-  },
-  wallets: [],
-  walletIDs: [],
-  currentWallet: '',
+export const createWalletSlice: StateCreator<
+  WalletSlice & NodeSlice & AppSlice,
+  [],
+  [],
+  WalletSlice
+> = (set) => ({
+  wallets: [
+    {
+      accountDepth: 0,
+      encrypted: '',
+      watchOnly: false,
+      wid: '010101',
+      accounts: ['default', 'tld+emoji', 'holdings', 'misc.'],
+    },
+    {
+      accountDepth: 0,
+      encrypted: '',
+      watchOnly: false,
+      wid: '090909',
+      accounts: ['default', 'secondary'],
+    },
+    {
+      accountDepth: 0,
+      encrypted: '',
+      watchOnly: false,
+      wid: '090909',
+      accounts: ['default'],
+    },
+  ],
+  walletIDs: ['primary', 'secondary', 'tertiary'],
+  currentWallet: 'primary',
   accountInfo: {
     accountIndex: 0,
-    name: '',
+    name: 'default',
     type: '',
     watchOnly: false,
     wid: '',
@@ -85,7 +107,7 @@ export const useWalletBase = create<WalletState>((set) => ({
   accountNames: [],
   currentAccount: 'default',
   locked: true,
-  receiveAddress: '',
+  receiveAddress: 'hs1quz3ups4wd8d065m9yntca8mg0tu7vkv3ys7wmk',
   rescanning: false,
   watchOnly: false,
   tip: {
@@ -99,32 +121,61 @@ export const useWalletBase = create<WalletState>((set) => ({
     unconfirmed: 13684.03,
     lockedUnconfirmed: 197.02,
   },
+
   createWallet: (options) => console.log(options),
+
   lockWallet: () => set({ locked: true }),
+
   unlockWallet: (password) => {
     set({ locked: false });
     console.log(password);
   },
+
   fetchWalletState: () => console.log('fetch wallet state'),
+
   fetchWalletBalance: () => console.log('fetch wallet balance'),
+
   setWalletBalance: (balance) => console.log('set wallet balance:', balance),
+
   fetchWallets: () => console.log('fetch wallets'),
+
   fetchAccountNames: (walletID) =>
     console.log('fetch account names:', walletID),
+
   setAccountNames: (accountNames) =>
     console.log('set account names', accountNames),
+
   fetchAccountsInfo: (walletId) => console.log('fecth accounts info', walletId),
-  selectAccount: (accountName) => console.log('select account', accountName),
+
+  selectAccount: (accountName) => {
+    // const selected = await postMessage({
+    //   type: MessageTypes.SELECT_ACCOUNT,
+    //   payload: accountName,
+    // });
+    set({ currentAccount: accountName });
+  },
+
   setCurrentAccount: (accountName) => set({ currentAccount: accountName }),
+
   fetchWalletIDs: () => console.log('fetch wallet ids'),
-  selectWallet: (id) => console.log('select wallet', id),
+
+  selectWallet: (id) => {
+    // await postMessage({
+    //   type: MessageTypes.SELECT_WALLET,
+    //   payload: id,
+    // });
+    // await dispatch(fetchWalletState());
+    // await dispatch(fetchAccountsInfo(id));
+    // await dispatch(selectAccount('default'));
+    set({ currentWallet: id });
+  },
+
   fetchReceiveAddress: (accountName, id) =>
     console.log('fetch receive address', accountName, id),
+
   setReceiveAddress: (receiveAddress) =>
     console.log('set receive address', receiveAddress),
-}));
-
-export const useWallet = createSelectors(useWalletBase);
+});
 
 // export const createWallet = (options: CreateWalletShape) =>
 //   console.log(options);

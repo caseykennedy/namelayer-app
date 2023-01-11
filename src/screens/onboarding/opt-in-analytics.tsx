@@ -1,59 +1,69 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView, Text, View } from 'dripsy';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import type { RootStackParamList } from '@/navigation/types';
-import { Button } from '@/ui/components/button';
+import { Button, Switch } from '@/ui';
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Terms'>;
+import { OnboardingFooter, OnboardingHeader, OnboardingLayout } from './layout';
 
-export const OptInAnalytics = ({ navigation }: ScreenProps) => {
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'OptInAnalytics'>;
+
+export function OptInAnalytics({ navigation, route }: ScreenProps) {
+  const { termsAccepted, walletName, password, seedphrase } = route.params;
+  const [optIn, setOptIn] = useState(false);
+
+  const onFinish = useCallback(() => {
+    console.log(
+      'create wallet:',
+      termsAccepted,
+      walletName,
+      password,
+      seedphrase,
+      optIn
+    );
+    navigation.navigate('Main');
+  }, [navigation, termsAccepted, walletName, password, seedphrase, optIn]);
+
   return (
-    <View
-      sx={{
-        flex: 1,
-        backgroundColor: 'bg.800',
-      }}
-    >
+    <OnboardingLayout>
+      <OnboardingHeader
+        title="Opt-in to analytics"
+        message="Do you want to send anonymous usage data to Kyokan?"
+      />
+
       <SafeAreaView sx={{ flex: 1 }}>
         <View
           sx={{
             flex: 1,
+            flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'center',
           }}
         >
-          <Text variants={['xxl', 'medium', 'centered']}>Opt-In Analytics</Text>
-        </View>
-        <View
-          sx={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            px: 'lg',
-          }}
-        >
-          <Button
+          <Switch
+            isEnabled={optIn}
+            onValueChange={() => setOptIn(!optIn)}
+            value={optIn}
+          />
+          <Text
             sx={{
-              alignItems: 'center',
-              px: 'md',
-              py: 'sm',
-              mb: 'md',
-
-              bg: 'purple.700',
-              borderRadius: 'xs',
-              borderStyle: 'solid',
-              borderColor: 'border.dark',
-              borderWidth: 1,
-
-              width: '100%',
+              ml: 'gutter',
             }}
-            onPress={() => navigation.navigate('Root', { screen: 'Profile' })}
           >
-            <Text>finish</Text>
-          </Button>
+            Yes, opt me in.
+          </Text>
         </View>
+
+        <OnboardingFooter>
+          <Button
+            variant={optIn ? 'primary' : 'default'}
+            disabled={!optIn}
+            onPress={onFinish}
+          >
+            Finish
+          </Button>
+        </OnboardingFooter>
       </SafeAreaView>
-    </View>
+    </OnboardingLayout>
   );
-};
+}

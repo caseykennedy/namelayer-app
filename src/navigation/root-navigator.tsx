@@ -17,9 +17,11 @@ const RootStack = createNativeStackNavigator();
 export const Root = () => {
   const status = useAuth((state) => state.status);
   const [isFirstTime] = useIsFirstTime();
+
   const hideSplash = React.useCallback(async () => {
     await SplashScreen.hideAsync();
   }, []);
+
   useEffect(() => {
     if (status !== 'idle') {
       hideSplash();
@@ -34,7 +36,7 @@ export const Root = () => {
         animation: 'default',
       }}
     >
-      {isFirstTime ? (
+      {!isFirstTime ? (
         <RootStack.Group>
           <RootStack.Screen name="Onboarding" component={OnboardingNavigator} />
         </RootStack.Group>

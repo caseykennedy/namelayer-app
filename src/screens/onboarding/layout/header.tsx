@@ -6,7 +6,7 @@ type Props = {
   message: string;
 };
 
-export const OnboardingHeader = ({ title, message }: Props) => {
+export function OnboardingHeader({ title, message }: Props) {
   return (
     <SafeAreaView sx={{ mb: 'md' }}>
       <Text variants={['lg', 'medium']} sx={{ mb: 'xs' }}>
@@ -15,4 +15,4 @@ export const OnboardingHeader = ({ title, message }: Props) => {
       <Text variants={['muted']}>{message}</Text>
     </SafeAreaView>
   );
-};
+}

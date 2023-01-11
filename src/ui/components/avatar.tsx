@@ -12,13 +12,13 @@ export const Avatar = ({ size = 28 }: Props) => (
       justifyContent: 'center',
       height: size,
       width: size,
-      backgroundColor: 'bg.100',
+      // backgroundColor: 'purple.700',
       borderWidth: 1,
-      borderColor: 'border.dark',
+      borderColor: 'purple.300',
       borderRadius: 'sm',
     }}
   >
-    <Text variants={['sm', 'bold']} sx={{ color: 'bg.900' }}>
+    <Text variants={['sm', 'bold']} sx={{ color: 'purple.300' }}>
       c
     </Text>
   </View>

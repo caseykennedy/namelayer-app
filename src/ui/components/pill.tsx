@@ -1,4 +1,4 @@
-import { Row } from 'dripsy';
+import { View } from 'dripsy';
 import * as React from 'react';
 
 type Props = {
@@ -6,10 +6,11 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const Pill = ({ borderColor = 'border', children }: Props) => {
+export const Pill = ({ borderColor = 'border.light', children }: Props) => {
   return (
-    <Row
+    <View
       sx={{
+        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         px: 'xs',
@@ -21,6 +22,6 @@ export const Pill = ({ borderColor = 'border', children }: Props) => {
       }}
     >
       {children}
-    </Row>
+    </View>
   );
 };

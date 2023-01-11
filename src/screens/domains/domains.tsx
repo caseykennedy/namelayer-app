@@ -1,11 +1,11 @@
 import { ScrollView, Text, View } from 'dripsy';
 import React from 'react';
 
-export const Domains = () => {
+export function Domains() {
   return (
     <ScrollView
       sx={{
-        backgroundColor: 'bg.800',
+        backgroundColor: 'bg.600',
       }}
     >
       <View
@@ -20,4 +20,4 @@ export const Domains = () => {
       </View>
     </ScrollView>
   );
-};
+}

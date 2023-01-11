@@ -5,7 +5,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const OnboardingFooter = ({ children }: Props) => {
+export function OnboardingFooter({ children }: Props) {
   return (
     <Container
       sx={{
@@ -17,4 +17,4 @@ export const OnboardingFooter = ({ children }: Props) => {
       {children}
     </Container>
   );
-};
+}

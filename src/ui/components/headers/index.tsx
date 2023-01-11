@@ -1,26 +1,25 @@
-import { Pressable, Row, Text, View } from 'dripsy';
+import { Pressable, Row, Text, useDripsyTheme, View } from 'dripsy';
 import React, { useEffect } from 'react';
 
 import { useStore } from '@/store';
-import { theme } from '@/ui';
+import { Jazzicon, Pill } from '@/ui';
 import { Tube } from '@/ui/icons';
-
-import { Avatar } from '../avatar';
-import { Pill } from '../pill';
 
 type HeaderRightProps = {
   openDrawer: () => void;
 };
 
-export const WalletHeaderTitle = () => {
+export function WalletHeaderTitle() {
   return (
     <Text variant="body" sx={{ color: 'muted', mr: 'xs' }}>
       {' '}
     </Text>
   );
-};
+}
 
-export const WalletHeaderRight = ({ openDrawer }: HeaderRightProps) => {
+export function WalletHeaderRight({ openDrawer }: HeaderRightProps) {
+  const currentWallet = useStore.use.currentWallet();
+
   return (
     <Pressable
       onPress={openDrawer}
@@ -35,18 +34,19 @@ export const WalletHeaderRight = ({ openDrawer }: HeaderRightProps) => {
         }}
       >
         <Text variant="body" sx={{ color: 'muted', mr: 'xs' }}>
-          Primary Wallet
+          {currentWallet}
         </Text>
-        <Avatar />
+        <Jazzicon />
       </Row>
     </Pressable>
   );
-};
+}
 
-export const WalletHeaderLeft = () => {
+export function WalletHeaderLeft() {
+  const { colors } = useDripsyTheme().theme;
   const isSyncing = useStore.use.isSyncing();
   const syncMessage = useStore.use.syncMessage();
-  const color = theme.colors.aqua[500];
+  const color = colors.success[500];
 
   // const hasSyncMessage = syncMessage !== null;
 
@@ -62,10 +62,10 @@ export const WalletHeaderLeft = () => {
     >
       <Pill borderColor={color}>
         <Tube color={color} />
-        <Text variants={['mono', 'xxs']} sx={{ color: color, ml: 'xxs' }}>
+        <Text variants={['mono', 'xxs']} sx={{ color, ml: 'xxs' }}>
           {isSyncing ? syncMessage : 'Synced'}
         </Text>
       </Pill>
     </View>
   );
-};
+}

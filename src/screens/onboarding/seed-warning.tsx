@@ -1,15 +1,15 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Pressable, SafeAreaView, Text, View } from 'dripsy';
+import { SafeAreaView, Text, View } from 'dripsy';
 import React, { useState } from 'react';
 
 import type { RootStackParamList } from '@/navigation/types';
-import { Button } from '@/ui/components/button';
+import { Button, Switch } from '@/ui';
 
 import { OnboardingFooter, OnboardingHeader, OnboardingLayout } from './layout';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SeedWarning'>;
 
-export const SeedWarning = ({ navigation, route }: ScreenProps) => {
+export function SeedWarning({ navigation, route }: ScreenProps) {
   const { termsAccepted, walletName, password } = route.params;
   const [accepted, setAccepted] = useState(false);
   const isImporting = false;
@@ -34,24 +34,18 @@ export const SeedWarning = ({ navigation, route }: ScreenProps) => {
             flex: 1,
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'center',
           }}
         >
-          <Pressable
+          <Switch
+            isEnabled={accepted}
+            onValueChange={() => setAccepted(!accepted)}
+            value={accepted}
+          />
+          <Text
             sx={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              bg: accepted ? 'purple.700' : 'purple.800',
-              borderRadius: 'full',
-              mr: 'gutter',
-              height: 42,
-              width: 42,
+              ml: 'gutter',
             }}
-            onPress={() => setAccepted(!accepted)}
           >
-            <Text>•</Text>
-          </Pressable>
-          <Text>
             {isImporting
               ? 'I understand the risks, let me enter my seed phrase.'
               : 'I understand that if I lose my seed phrase, I will no longer be able to access my wallet.'}
@@ -76,4 +70,4 @@ export const SeedWarning = ({ navigation, route }: ScreenProps) => {
       </SafeAreaView>
     </OnboardingLayout>
   );
-};
+}

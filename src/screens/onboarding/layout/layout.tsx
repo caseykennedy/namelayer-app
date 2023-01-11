@@ -5,16 +5,16 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const OnboardingLayout = ({ children }: Props) => {
+export function OnboardingLayout({ children }: Props) {
   return (
     <Container
       sx={{
         flex: 1,
-        backgroundColor: 'bg.700',
+        backgroundColor: 'bg.600',
         p: 'gutter',
       }}
     >
       {children}
     </Container>
   );
-};
+}

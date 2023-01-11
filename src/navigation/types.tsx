@@ -1,11 +1,13 @@
 import type { RouteProp as NRouteProp } from '@react-navigation/native';
 
 import type { AuthStackParamList } from './auth-navigator';
+import type { DrawerStackParamList } from './drawer-navigator';
 import type { OnboardingParamList } from './onboarding-navigator';
 import type { TabParamList } from './tab-navigator';
 import type { TxParamList } from './tx-navigator';
 
 export type RootStackParamList = AuthStackParamList &
+  DrawerStackParamList &
   OnboardingParamList &
   TabParamList &
   TxParamList; //  & FooStackParamList & BarStackParamList

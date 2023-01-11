@@ -9,7 +9,7 @@ import { OnboardingFooter, OnboardingHeader, OnboardingLayout } from './layout';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'CreatePassword'>;
 
-export const CreatePassword = ({ navigation, route }: ScreenProps) => {
+export function CreatePassword({ navigation, route }: ScreenProps) {
   const { termsAccepted, walletName } = route.params;
   const [errorMessage, setErrorMessage] = useState('');
   const [visible, setVisibility] = useState(false);
@@ -77,4 +77,4 @@ export const CreatePassword = ({ navigation, route }: ScreenProps) => {
       </SafeAreaView>
     </OnboardingLayout>
   );
-};
+}

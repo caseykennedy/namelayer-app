@@ -1,6 +1,7 @@
 import type { StateCreator } from 'zustand';
 
 import type { NodeSlice } from './node';
+import type { WalletSlice } from './wallet';
 
 export type AppSlice = {
   apiHost: string;
@@ -14,7 +15,7 @@ export type AppSlice = {
 };
 
 export const createAppSlice: StateCreator<
-  AppSlice & NodeSlice,
+  AppSlice & NodeSlice & WalletSlice,
   [],
   [],
   AppSlice

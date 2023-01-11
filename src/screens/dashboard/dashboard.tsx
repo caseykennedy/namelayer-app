@@ -1,21 +1,16 @@
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Pressable, Text, View } from 'dripsy';
+import { Text, useDripsyTheme, View } from 'dripsy';
 import React, { useEffect } from 'react';
 import { ScrollView } from 'react-native';
 
-import type { RootStackParamList } from '@/navigation/types';
 import { useStore } from '@/store';
-import { theme } from '@/ui';
-import { Button, Wallet } from '@/ui/components';
+import { Button, Wallet } from '@/ui';
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'ConfirmTx'>;
-
-export const Dashboard = ({}: ScreenProps) => {
+export function Dashboard() {
+  const { colors } = useDripsyTheme().theme;
   const nav = useNavigation();
 
   const blockHeight = useStore.use.height();
-  // const wallet = useWallet((state) => state);
   // const apiHost = useStore.use.apiHost();
   // const apiKey = useStore.use.apiKey();
   // const setIsSyncing = useStore.use.setIsSyncing();
@@ -48,27 +43,17 @@ export const Dashboard = ({}: ScreenProps) => {
 
   return (
     // eslint-disable-next-line react-native/no-inline-styles
-    <ScrollView style={{ flex: 1, backgroundColor: theme.colors.bg[800] }}>
+    <ScrollView style={{ flex: 1, backgroundColor: colors.bg[600] }}>
       <Wallet />
       <View
         sx={{
           flex: 1,
-          backgroundColor: 'bg.600',
+          p: 'gutter',
         }}
       >
-        <Pressable
-        // style={({ pressed }) => ({
-        //   backgroundColor: pressed ? '#008080' : '#a4c936',
-        //   opacity: pressed ? 0.5 : 1,
-        // })}
-        >
-          <Button
-            onPress={() => nav.navigate('ConfirmTx')}
-            sx={{ px: 'gutter', py: 'gutter', alignItems: 'center' }}
-          >
-            <Text>open confirm tx modal</Text>
-          </Button>
-        </Pressable>
+        <Button variant="primary" onPress={() => nav.navigate('ConfirmTx')}>
+          <Text>open confirm tx modal</Text>
+        </Button>
       </View>
 
       <View
@@ -83,4 +68,4 @@ export const Dashboard = ({}: ScreenProps) => {
       </View>
     </ScrollView>
   );
-};
+}

@@ -43,8 +43,9 @@ export const Button = ({
         </View>
       ) : (
         <Text
-          {...labelProps}
+          variants={['bold']}
           sx={{ color: variant === 'primary' ? 'text' : 'muted' }}
+          {...labelProps}
         >
           {children}
         </Text>

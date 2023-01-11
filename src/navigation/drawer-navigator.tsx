@@ -6,8 +6,12 @@ import { NavDrawer } from '@/ui/components';
 
 import { TabNavigator } from './tab-navigator';
 
+export type DrawerStackParamList = {
+  Main: undefined;
+};
+
 const Drawer = createDrawerNavigator();
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<DrawerStackParamList>();
 
 export const DrawerNavigator = () => {
   return (

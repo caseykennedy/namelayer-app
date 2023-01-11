@@ -3,6 +3,7 @@ import type { StateCreator } from 'zustand';
 import NodeClient from '@/core/background/node';
 
 import type { AppSlice } from './app';
+import type { WalletSlice } from './wallet';
 
 export type NodeSlice = {
   hash: string;
@@ -14,7 +15,7 @@ export type NodeSlice = {
 };
 
 export const createNodeSlice: StateCreator<
-  NodeSlice & AppSlice,
+  NodeSlice & AppSlice & WalletSlice,
   [],
   [],
   NodeSlice

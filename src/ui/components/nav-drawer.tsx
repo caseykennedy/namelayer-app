@@ -2,9 +2,11 @@ import type { DrawerContentComponentProps } from '@react-navigation/drawer';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { Pressable, Row, Text, View } from 'dripsy';
 // import * as Clipboard from 'expo-clipboard';
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import Toast from 'react-native-toast-message';
 
-import { Avatar, Icon } from '@/ui/components';
+import { useStore } from '@/store';
+import { Icon, Jazzicon } from '@/ui/components';
 import { Copy as CopyIcon, Plus } from '@/ui/icons';
 import { theme } from '@/ui/theme';
 // import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -23,18 +25,6 @@ const stackNavItems = [
   {
     label: 'Lock wallet',
     icon: <Icon name="lock" size={18} color={theme.colors.muted} />,
-  },
-];
-
-const walletNavItems = [
-  {
-    name: 'Primary wallet',
-  },
-  {
-    name: 'Secondary',
-  },
-  {
-    name: 'Ledger',
   },
 ];
 
@@ -64,16 +54,21 @@ export const NavDrawer = (props: DrawerContentComponentProps) => {
   );
 };
 
-const WalletDetails = () => {
-  const copyToClipboard = async (address: string) => {
-    console.log('address', address);
-    // await Clipboard.setStringAsync(address);
-  };
+function WalletDetails() {
+  const receiveAddress = useStore.use.receiveAddress();
+  const currentWallet = useStore.use.currentWallet();
+  const currentAccount = useStore.use.currentAccount();
+  const accountAddressEllipse = ellipseAddress(receiveAddress, 4, 4);
 
-  const walletName = 'Primary wallet';
-  const accountName = 'Default account';
-  const accountAddress = 'hs1quz3ups4wd8d065m9yntca8mg0tu7vkv3ys7wmk';
-  const accountAddressEllipse = ellipseAddress(accountAddress, 4, 4);
+  const copyToClipboard = async (address: string) => {
+    // await Clipboard.setStringAsync(address);
+    console.log('address', address);
+    Toast.show({
+      type: 'success',
+      text1: 'Copied!',
+      text2: 'Your receive address has been copied.',
+    });
+  };
 
   return (
     <View sx={{ pt: 'xs', p: 'gutter' }}>
@@ -83,8 +78,8 @@ const WalletDetails = () => {
           justifyContent: 'space-between',
         }}
       >
-        <Avatar size={44} />
-        <Text variants={['md', 'medium']}>{walletName}</Text>
+        <Jazzicon borderRadius={14} size={44} />
+        <Text variants={['md', 'medium']}>{currentWallet}</Text>
       </Row>
 
       <Row
@@ -94,8 +89,8 @@ const WalletDetails = () => {
           pt: 80,
         }}
       >
-        <Pressable onPress={() => copyToClipboard(accountAddress)}>
-          <Text variants={['md', 'medium']}>{accountName}</Text>
+        <Pressable onPress={() => copyToClipboard(receiveAddress)}>
+          <Text variants={['md', 'medium']}>{currentAccount}</Text>
           <Row
             sx={{
               alignItems: 'center',
@@ -116,9 +111,62 @@ const WalletDetails = () => {
       </Row>
     </View>
   );
-};
+}
 
-const WalletNav = () => {
+function WalletNav() {
+  const wallets = useStore.use.wallets();
+  const walletIDs = useStore.use.walletIDs();
+  const currentWallet = useStore.use.currentWallet();
+
+  const selectAccount = useStore.use.selectAccount();
+  const selectWallet = useStore.use.selectWallet();
+  const setCurrentAccount = useStore.use.setCurrentAccount();
+
+  const [currentAddress, setCurrentAddress] = useState('');
+  const [addresses, setAddresses] = useState<
+    { address: string; watchOnly: boolean; accounts: string[] }[]
+  >([]);
+
+  useEffect(() => {
+    (async function onAppHeaderMount() {
+      const walletAddresses = [];
+      for (const wallet of wallets) {
+        const wid = wallet.wid;
+        // const response = await postMessage({
+        //   type: MessageTypes.GET_WALLET_RECEIVE_ADDRESS,
+        //   payload: {
+        //     id: wid,
+        //     depth: 0,
+        //   },
+        // });
+        if (wid === currentWallet) {
+          setCurrentAddress('0x');
+        }
+        walletAddresses.push({
+          address: '0x',
+          watchOnly: wallet.watchOnly,
+          accounts: wallet.accounts,
+        });
+      }
+      setAddresses(walletAddresses);
+    })();
+  }, [walletIDs, currentWallet, wallets]);
+
+  const onSelectWallet = useCallback(
+    (id: string) => {
+      selectWallet(id);
+      setCurrentAccount('default');
+    },
+    [selectWallet, setCurrentAccount]
+  );
+
+  const onSelectAccount = useCallback(
+    (accountName: string) => {
+      selectAccount(accountName);
+    },
+    [selectAccount]
+  );
+
   return (
     <View
       sx={{
@@ -126,37 +174,75 @@ const WalletNav = () => {
         backgroundColor: 'bg.600',
       }}
     >
-      {walletNavItems.map(({ name }) => (
-        <Row
-          sx={{
-            // borderBottomWidth: 1,
-            // borderColor: 'border.light',
-            alignItems: 'center',
-            px: 'gutter',
-            py: 'sm',
-          }}
-          key={name}
-        >
-          <Avatar />
-          <Text
-            sx={{
-              pl: 'xs',
-            }}
-          >
-            {name}
-          </Text>
-        </Row>
-      ))}
+      {addresses.map((address, i) => {
+        const multiAccount =
+          currentWallet === walletIDs[i] && !address.watchOnly;
+        return (
+          <View key={i}>
+            <View key={i}>
+              <Row
+                sx={{
+                  alignItems: 'center',
+                  px: 'gutter',
+                  py: 'sm',
+                }}
+              >
+                <Jazzicon />
+                <Pressable
+                  onPress={() => onSelectWallet(walletIDs[i])}
+                  sx={{
+                    pl: 'xs',
+                  }}
+                >
+                  <Text>{walletIDs[i]}</Text>
+                </Pressable>
+              </Row>
+            </View>
+
+            {multiAccount && (
+              <View
+                sx={{
+                  bg: 'bg.700',
+                  borderStyle: 'solid',
+                  borderTopWidth: 2,
+                  borderColor: 'border.dark',
+                }}
+              >
+                {address.accounts.map((account, ii) => {
+                  if (account !== 'default') {
+                    return (
+                      <Pressable
+                        onPress={() => onSelectAccount(account)}
+                        key={ii}
+                      >
+                        <Row
+                          sx={{
+                            alignItems: 'center',
+                            px: 'gutter',
+                            py: 'sm',
+                          }}
+                        >
+                          <Text>{account}</Text>
+                        </Row>
+                      </Pressable>
+                    );
+                  }
+                })}
+              </View>
+            )}
+          </View>
+        );
+      })}
       {/* <DrawerItemList {...props} /> */}
     </View>
   );
-};
+}
 
-const StackNav = () => {
+function StackNav() {
   return (
     <View
       sx={{
-        backgroundColor: 'bg.800',
+        backgroundColor: 'bg.700',
         borderTopWidth: 2,
         borderColor: 'border.dark',
         pb: 'lg',
@@ -195,4 +281,4 @@ const StackNav = () => {
       ))}
     </View>
   );
-};
+}

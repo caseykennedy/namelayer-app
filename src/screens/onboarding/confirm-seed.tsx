@@ -1,7 +1,6 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { SafeAreaView, Text, View } from 'dripsy';
+import { Pressable, SafeAreaView, Text, View } from 'dripsy';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Pressable } from 'react-native';
 
 import type { RootStackParamList } from '@/navigation/types';
 import { Button } from '@/ui';
@@ -11,7 +10,7 @@ import { OnboardingFooter, OnboardingHeader, OnboardingLayout } from './layout';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'ConfirmSeed'>;
 
-export const ConfirmSeed = ({ navigation, route }: ScreenProps) => {
+export function ConfirmSeed({ navigation, route }: ScreenProps) {
   const { termsAccepted, walletName, password, seedphrase } = route.params;
   // TODO: import wallet
   const isImporting = false;
@@ -20,9 +19,21 @@ export const ConfirmSeed = ({ navigation, route }: ScreenProps) => {
   const [sortedSeeds, setSortedSeeds] = useState<string[]>([]);
 
   const onSortSeed = useCallback(
-    (word: string) => {
-      setSortedSeeds([...sortedSeeds, word]);
-      setShuffledSeeds(shuffledSeeds.filter((w) => w !== word));
+    (seed: string) => {
+      setSortedSeeds([...sortedSeeds, seed]);
+      setShuffledSeeds(
+        shuffledSeeds.filter((filteredSeed) => filteredSeed !== seed)
+      );
+    },
+    [sortedSeeds, shuffledSeeds]
+  );
+
+  const onResetSeed = useCallback(
+    (seed: string) => {
+      setSortedSeeds(
+        sortedSeeds.filter((filteredSeed) => filteredSeed !== seed)
+      );
+      setShuffledSeeds([...shuffledSeeds, seed]);
     },
     [sortedSeeds, shuffledSeeds]
   );
@@ -39,13 +50,19 @@ export const ConfirmSeed = ({ navigation, route }: ScreenProps) => {
     disabled = true;
   }
 
-  useEffect(() => {
-    console.log('seedphrase:', seedphrase);
-    console.log('sortedSeeds:', sortedSeeds);
-  }, [sortedSeeds, seedphrase]);
+  const onContinue = useCallback(() => {
+    navigation.navigate('OptInAnalytics', {
+      termsAccepted,
+      walletName,
+      password,
+      seedphrase: sortedSeeds.join(' '),
+    });
+  }, [navigation, termsAccepted, walletName, password, sortedSeeds]);
 
   useEffect(() => {
-    console.log('sortedSeeds:', seedphrase !== sortedSeeds.join(' '));
+    console.log('seedphrase:', seedphrase);
+    console.log('sortedSeeds:', sortedSeeds.join(' '));
+    console.log('seeds are not sorted?:', seedphrase !== sortedSeeds.join(' '));
   }, [sortedSeeds, seedphrase]);
 
   return (
@@ -67,12 +84,26 @@ export const ConfirmSeed = ({ navigation, route }: ScreenProps) => {
         sx={{
           flexDirection: 'row',
           flexWrap: 'wrap',
+          p: 'xs',
+          mb: 'gutter',
+          bg: 'bg.800',
+          borderRadius: 'sm',
+          borderStyle: 'solid',
+          borderColor: 'border.light',
+          borderWidth: 1,
         }}
       >
-        {sortedSeeds.map((word, i) => (
-          <Text variants={['sm', 'muted']} sx={{ mr: 'sm' }} key={i}>
-            {word}
-          </Text>
+        {sortedSeeds.map((seed, i) => (
+          <Seed key={i}>
+            <Text variants={['sm', 'muted']} sx={{ pr: 'xs' }}>
+              {seed}
+            </Text>
+            <Pressable onPress={() => onResetSeed(seed)}>
+              <Text variants={['xs', 'muted']} sx={{ p: 'xxs' }}>
+                x
+              </Text>
+            </Pressable>
+          </Seed>
         ))}
       </View>
 
@@ -82,9 +113,11 @@ export const ConfirmSeed = ({ navigation, route }: ScreenProps) => {
           flexWrap: 'wrap',
         }}
       >
-        {shuffledSeeds.map((word, i) => (
-          <Pressable onPress={() => onSortSeed(word)} key={i}>
-            <Text sx={{ mr: 'sm' }}>{word}</Text>
+        {shuffledSeeds.map((seed, i) => (
+          <Pressable onPress={() => onSortSeed(seed)} key={i}>
+            <Seed>
+              <Text>{seed}</Text>
+            </Seed>
           </Pressable>
         ))}
       </View>
@@ -93,20 +126,39 @@ export const ConfirmSeed = ({ navigation, route }: ScreenProps) => {
         <OnboardingFooter>
           <Button
             disabled={disabled}
-            variant="primary"
-            onPress={() =>
-              navigation.navigate('OptInAnalytics', {
-                termsAccepted,
-                walletName,
-                password,
-                seedphrase: sortedSeeds.join(' '),
-              })
-            }
+            variant={disabled ? 'default' : 'primary'}
+            onPress={onContinue}
           >
             Continue
           </Button>
         </OnboardingFooter>
       </SafeAreaView>
     </OnboardingLayout>
+  );
+}
+
+type SeedProps = {
+  children: React.ReactNode;
+};
+
+const Seed = ({ children }: SeedProps) => {
+  return (
+    <View
+      sx={{
+        alignItems: 'center',
+        flexDirection: 'row',
+        px: 'xs',
+        py: 'xxs',
+        mb: 'xxs',
+        mr: 'xxs',
+        bg: 'bg.900',
+        borderRadius: 'sm',
+        borderStyle: 'solid',
+        borderColor: 'border.light',
+        borderWidth: 1,
+      }}
+    >
+      {children}
+    </View>
   );
 };

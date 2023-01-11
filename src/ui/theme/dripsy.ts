@@ -10,7 +10,7 @@ const baseButton = {
   mb: 'xs',
 
   bg: 'bg.900',
-  borderRadius: 'sm',
+  borderRadius: 'md',
   borderStyle: 'solid',
   borderColor: 'border.light',
   borderWidth: 1,

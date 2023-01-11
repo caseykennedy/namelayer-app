@@ -1,7 +1,7 @@
 import { Row, Text, View } from 'dripsy';
 import * as React from 'react';
 
-import { useWallet } from '@/store';
+import { useStore } from '@/store';
 import { Icon, theme } from '@/ui';
 
 const HNS_CURRENT_FIAT = 0.24;
@@ -23,9 +23,8 @@ export const WalletSupply = () => {
 };
 
 const TokenBalance = () => {
-  const { unconfirmed, lockedUnconfirmed } = useWallet(
-    (state) => state.balance
-  );
+  const unconfirmed = useStore.use.balance().unconfirmed;
+  const lockedUnconfirmed = useStore.use.balance().lockedUnconfirmed;
   const spendable = unconfirmed - lockedUnconfirmed;
   const spendableFormatted = spendable.toLocaleString();
 
@@ -78,9 +77,8 @@ const HnsBadge = () => {
 };
 
 const TokenBalanceMeta = () => {
-  const { unconfirmed, lockedUnconfirmed } = useWallet(
-    (state) => state.balance
-  );
+  const unconfirmed = useStore.use.balance().unconfirmed;
+  const lockedUnconfirmed = useStore.use.balance().lockedUnconfirmed;
   const spendableFiat = HNS_CURRENT_FIAT * (unconfirmed - lockedUnconfirmed);
   const spendableFiatFormatted = spendableFiat.toLocaleString();
 
