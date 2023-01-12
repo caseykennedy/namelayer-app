@@ -6,12 +6,12 @@ import { Pressable as NPressable, StyleSheet } from 'react-native';
 
 export const Pressable = styled(NPressable, {
   defaultVariant: 'default',
-  themeKey: 'button',
+  themeKey: 'buttons',
 })();
 
 type Props = {
   children?: React.ReactNode;
-  variant?: keyof DripsyTheme['button'];
+  variant?: keyof DripsyTheme['buttons'];
   onPress?: ComponentProps<typeof NPressable>['onPress'];
   pressableProps?: ComponentProps<typeof NPressable>;
   labelProps?: ComponentProps<typeof Text>;

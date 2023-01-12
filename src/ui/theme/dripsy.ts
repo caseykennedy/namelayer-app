@@ -7,14 +7,11 @@ const baseButton = {
   alignItems: 'center',
   px: 'sm',
   py: 'sm',
-  mb: 'xs',
-
   bg: 'bg.900',
   borderRadius: 'md',
   borderStyle: 'solid',
   borderColor: 'border.light',
   borderWidth: 1,
-
   width: '100%',
 };
 
@@ -103,7 +100,7 @@ export const theme = makeTheme({
     xxl: { fontSize: 'xxl' },
     xxxl: { fontSize: 'xxxl' },
   },
-  button: {
+  buttons: {
     default: {
       ...baseButton,
     },
@@ -111,6 +108,11 @@ export const theme = makeTheme({
       ...baseButton,
       bg: 'primary',
       borderColor: 'border.dark',
+    },
+    small: {
+      ...baseButton,
+      px: 'xxs',
+      py: 'xxs',
     },
   },
   // forms: {

@@ -1,17 +1,19 @@
-import create from 'zustand';
+import type { StateCreator } from 'zustand';
 
 import type { SignMessageRequest, Transaction } from '@/store';
 
-type QueueState = {
+export type QueueSlice = {
   order: string[];
-  map: {
-    [txHash: string]: Transaction | SignMessageRequest;
-  };
+  // map: {
+  //   [txHash: string]: Transaction | SignMessageRequest;
+  // };
   setTxQueue: (transactions: Transaction[] | SignMessageRequest[]) => void;
   fetchTxQueue: () => void;
 };
 
-export const useQueue = create<QueueState>((set, get) => ({
+export const createQueueSlice: StateCreator<QueueSlice, [], [], QueueSlice> = (
+  set
+) => ({
   order: [],
   map: {},
   setTxQueue: (transactions) => {
@@ -19,16 +21,16 @@ export const useQueue = create<QueueState>((set, get) => ({
       order: transactions.map(
         (tx: Transaction | SignMessageRequest) => tx.hash
       ),
-      map: transactions.reduce(
-        (
-          map: { [h: string]: Transaction | SignMessageRequest },
-          tx: Transaction | SignMessageRequest
-        ) => {
-          map[tx.hash] = tx;
-          return map;
-        },
-        {}
-      ),
+      // map: transactions.reduce(
+      //   (
+      //     map: { [h: string]: Transaction | SignMessageRequest },
+      //     tx: Transaction | SignMessageRequest
+      //   ) => {
+      //     map[tx.hash] = tx;
+      //     return map;
+      //   },
+      //   {}
+      // ),
     });
     console.log(transactions);
     //   type: ActionType.SET_TX_QUEUE,
@@ -38,4 +40,4 @@ export const useQueue = create<QueueState>((set, get) => ({
     // const txQueue = await postMessage({ type: MessageTypes.GET_TX_QUEUE });
     // get().setTxQueue(txQueue);
   },
-}));
+});

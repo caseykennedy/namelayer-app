@@ -1,4 +1,4 @@
-import create from 'zustand';
+import type { StateCreator } from 'zustand';
 
 import type { Covenant } from '@/utils/covenant';
 
@@ -51,12 +51,12 @@ export type Transaction = {
   blind?: number;
 };
 
-type TransactionsState = {
+export type TransactionsSlice = {
   pending: string[];
   order: string[];
-  map: {
-    [txHash: string]: Transaction | SignMessageRequest;
-  };
+  // map: {
+  //   [txHash: string]: Transaction | SignMessageRequest;
+  // };
   offset: number;
   fetching: boolean;
   fetchTransactions: () => void;
@@ -68,7 +68,12 @@ type TransactionsState = {
   setTransactions: (transactions: Transaction[]) => void;
 };
 
-export const useTransactions = create<TransactionsState>((set, get) => ({
+export const createTransactionsSlice: StateCreator<
+  TransactionsSlice,
+  [],
+  [],
+  TransactionsSlice
+> = (set, get) => ({
   pending: [],
   order: [],
   map: {},
@@ -104,6 +109,7 @@ export const useTransactions = create<TransactionsState>((set, get) => ({
     set({ offset });
   },
   setBlindHash: (blind, hash) => {
+    console.log(blind, hash);
     // set({
     //   map: {
     //     [hash]: {
@@ -119,13 +125,13 @@ export const useTransactions = create<TransactionsState>((set, get) => ({
   setTransactions: (transactions) => {
     set({
       order: transactions.map((tx: Transaction) => tx.hash),
-      map: transactions.reduce(
-        (map: { [h: string]: Transaction }, tx: Transaction) => {
-          map[tx.hash] = tx;
-          return map;
-        },
-        {}
-      ),
+      // map: transactions.reduce(
+      //   (map: { [h: string]: Transaction }, tx: Transaction) => {
+      //     map[tx.hash] = tx;
+      //     return map;
+      //   },
+      //   {}
+      // ),
     });
   },
-}));
+});

@@ -1,12 +1,13 @@
+// import 'react-native-get-random-values';
 require('node-libs-react-native/globals.js');
 import 'react-native-url-polyfill/auto';
-// import 'react-native-get-random-values';
-import 'crypto';
+// import 'crypto';
 import 'react-native-gesture-handler';
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { DripsyProvider } from 'dripsy';
 import * as SplashScreen from 'expo-splash-screen';
+import { polyfillWebCrypto } from 'expo-standard-web-crypto';
 import React, { Suspense, useEffect } from 'react';
 import FlashMessage from 'react-native-flash-message';
 import Toast from 'react-native-toast-message';
@@ -18,15 +19,17 @@ import { useStore } from '@/store';
 import { theme } from '@/ui/theme';
 import Fonts from '@/ui/theme/fonts';
 
+polyfillWebCrypto();
+
 hydrateAuth();
 SplashScreen.preventAutoHideAsync();
 
 const App = () => {
-  const fetchBlock = useStore.use.fetchLatestBlock();
+  const fetchLatestBlock = useStore.use.fetchLatestBlock();
 
   useEffect(() => {
-    fetchBlock();
-  }, [fetchBlock]);
+    fetchLatestBlock();
+  }, [fetchLatestBlock]);
 
   return (
     <>

@@ -86,7 +86,7 @@ export const Icon = ({
     case 'no-data':
       return <NoData />;
     case 'plus':
-      return <Plus color={color} style={style} {...props} />;
+      return <Plus color={color} size={size} style={style} {...props} />;
     case 'rate':
       return <Rate color={color} style={style} {...props} />;
     case 'settings':

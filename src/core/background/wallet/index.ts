@@ -1,33 +1,35 @@
-import BidReveal from '@src/background/services/wallet/bid-reveal';
-import BlindBid from '@src/background/services/wallet/blind-bid';
-import type { UpdateRecordType } from '@src/contentscripts/bob3';
-import { ActionType as AppActionType } from '@src/ui/ducks/app';
-import { ActionTypes, setDomainNames } from '@src/ui/ducks/domains';
-import { setInfo } from '@src/ui/ducks/node';
-import { ActionType as QueueActionType, setTXQueue } from '@src/ui/ducks/queue';
-import type {
-  SignMessageRequest,
-  Transaction,
-} from '@src/ui/ducks/transactions';
-import {
-  ActionType,
-  setTransactions,
-  SIGN_MESSAGE_METHOD,
-  SIGN_MESSAGE_WITH_NAME_METHOD,
-} from '@src/ui/ducks/transactions';
-import {
-  ActionType as WalletActionType,
-  setAccountNames,
-  setCurrentAccount,
-  setReceiveAddress,
-  setWalletBalance,
-} from '@src/ui/ducks/wallet';
-import { get, put } from '@src/util/db';
-import { toDollaryDoos } from '@src/util/number';
-import pushMessage from '@src/util/pushMessage';
-import { GenericService } from '@src/util/svc';
-import { getBidBlind, getTXAction } from '@src/util/transaction';
+// import { ActionType as AppActionType } from '@src/ui/ducks/app';
+// import { ActionTypes, setDomainNames } from '@src/ui/ducks/domains';
+// import { setInfo } from '@src/ui/ducks/node';
+// import { ActionType as QueueActionType, setTXQueue } from '@src/ui/ducks/queue';
+// import type {
+//   SignMessageRequest,
+//   Transaction,
+// } from '@src/ui/ducks/transactions';
+// import {
+//   ActionType,
+//   setTransactions,
+//   SIGN_MESSAGE_METHOD,
+//   SIGN_MESSAGE_WITH_NAME_METHOD,
+// } from '@src/ui/ducks/transactions';
+// import {
+//   ActionType as WalletActionType,
+//   setAccountNames,
+//   setCurrentAccount,
+//   setReceiveAddress,
+//   setWalletBalance,
+// } from '@src/ui/ducks/wallet';
+// import pushMessage from '@src/util/pushMessage';
+// import { GenericService } from '@src/util/svc';
 import crypto from 'crypto';
+
+import BidReveal from '@/core/background/wallet/bid-reveal';
+import BlindBid from '@/core/background/wallet/blind-bid';
+import type { SignMessageRequest, Transaction } from '@/store';
+import type { UpdateRecordType } from '@/types';
+import { get, put } from '@/utils/db';
+import { toDollaryDoos } from '@/utils/number';
+import { getBidBlind, getTXAction } from '@/utils/transaction';
 
 import nodeService from '../node';
 const Mnemonic = require('hsd/lib/hd/mnemonic');
@@ -75,7 +77,7 @@ declare interface WalletService {
   nodeService: any;
 }
 
-class WalletService extends GenericService {
+class WalletService {
   network: typeof Network;
   wdb: typeof WalletDB;
   store: typeof DB;
@@ -83,7 +85,6 @@ class WalletService extends GenericService {
   private passphrase: string | undefined;
 
   constructor() {
-    super();
     this.selectedID = '';
     this.selectedAccount = 'default';
     this.locked = true;
@@ -645,10 +646,9 @@ class WalletService extends GenericService {
     passphrase: string;
     mnemonic: string;
     optIn: boolean;
-    accountKey: string;
     watchOnly: boolean;
   }) => {
-    await this.exec('setting', 'setAnalytics', options.optIn);
+    // await this.exec('setting', 'setAnalytics', options.optIn);
     const wallet = await this.wdb.create(options);
     const balance = await wallet.getBalance();
     await this.selectWallet(options.id);

@@ -5,14 +5,19 @@ import Svg, { Path } from 'react-native-svg';
 
 import { theme } from '../theme';
 
+type Props = SvgProps & {
+  size?: number;
+};
+
 export const Plus = ({
   color = theme.colors.muted,
+  size = 14,
   style,
   ...props
-}: SvgProps) => (
+}: Props) => (
   <Svg
-    width={14}
-    height={14}
+    width={size}
+    height={size}
     viewBox="0 0 14 14"
     fill="none"
     {...props}

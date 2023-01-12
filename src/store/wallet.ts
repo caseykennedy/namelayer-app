@@ -1,8 +1,6 @@
 import type { StateCreator } from 'zustand';
 
-// import WalletClient from '@/core/background/wallet';
-import type { AppSlice } from './app';
-import type { NodeSlice } from './node';
+import WalletService from '@/core/background/wallet';
 
 export type CreateWalletShape = {
   walletName: string;
@@ -67,7 +65,7 @@ export type WalletSlice = {
 };
 
 export const createWalletSlice: StateCreator<
-  WalletSlice & NodeSlice & AppSlice,
+  WalletSlice,
   [],
   [],
   WalletSlice
@@ -122,7 +120,27 @@ export const createWalletSlice: StateCreator<
     lockedUnconfirmed: 197.02,
   },
 
-  createWallet: (options) => console.log(options),
+  createWallet: async (options) => {
+    const { walletName, seedphrase, password, optIn } = options;
+    if (!walletName) throw new Error('Wallet name cannot be empty.');
+    if (!seedphrase) throw new Error('Invalid seedphrase.');
+    if (!password) throw new Error('Password cannot be empty.');
+
+    const walletOptions = {
+      id: walletName,
+      mnemonic: seedphrase,
+      passphrase: password,
+      optIn,
+      watchOnly: false,
+    };
+    const walletClient = new WalletService();
+    await walletClient.createWallet(walletOptions);
+
+    // await new Promise((r) => setTimeout(r, 1000));
+    // await dispatch(fetchWalletIDs());
+    // await dispatch(selectWallet(walletName));
+    // return;
+  },
 
   lockWallet: () => set({ locked: true }),
 

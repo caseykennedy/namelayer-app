@@ -1,4 +1,4 @@
-// const Mnemonic = require('hsd/lib/hd/mnemonic');
+const Mnemonic = require('hsd/lib/hd/mnemonic');
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView, Text, View } from 'dripsy';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -22,16 +22,16 @@ export function RevealSeed({ navigation, route }: ScreenProps) {
     setSeedphrase(seeds);
   }, []);
 
-  // useEffect(() => {
-  //   (async function onRevealSeedphraseMount() {
-  //     try {
-  //       const mnemonic = await new Mnemonic({ bits: 256 }).getPhrase().trim();
-  //       setSeedphrase(mnemonic);
-  //     } catch (e) {
-  //       console.error(e);
-  //     }
-  //   })();
-  // }, []);
+  useEffect(() => {
+    (async function onRevealSeedphraseMount() {
+      try {
+        const mnemonic = await new Mnemonic({ bits: 256 }).getPhrase().trim();
+        setSeedphrase(mnemonic);
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  }, []);
 
   const onContinue = useCallback(() => {
     navigation.navigate('ConfirmSeed', {

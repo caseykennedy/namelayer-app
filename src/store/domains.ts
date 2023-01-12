@@ -1,6 +1,6 @@
-import create from 'zustand';
+import type { StateCreator } from 'zustand';
 
-type Domain = {
+export type DomainShape = {
   claimed: number;
   data: string;
   expired: boolean;
@@ -23,11 +23,11 @@ type Domain = {
   ownerCovenantType?: string;
 };
 
-type DomainsState = {
+export type DomainsSlice = {
   order: string[];
-  map: {
-    [name: string]: Domain;
-  };
+  // map: {
+  //   [name: string]: DomainShape;
+  // };
   offset: number;
   fetching: boolean;
   setFetching: (fetching: boolean) => void;
@@ -35,11 +35,16 @@ type DomainsState = {
   resetDomains: () => void;
   fetchDomainName: (name: string) => void;
   fetchDomainNames: () => void;
-  setDomainName: (domain: Domain) => void;
-  setDomainNames: (domains: Domain[]) => void;
+  setDomainName: (domain: DomainShape) => void;
+  setDomainNames: (domains: DomainShape[]) => void;
 };
 
-export const useDomains = create<DomainsState>((set) => ({
+export const createDomainsSlice: StateCreator<
+  DomainsSlice,
+  [],
+  [],
+  DomainsSlice
+> = (set) => ({
   map: {},
   order: [],
   fetching: false,
@@ -72,39 +77,40 @@ export const useDomains = create<DomainsState>((set) => ({
     // await dispatch(setFetching(false));
   },
   setDomainName: (domain) => {
-    set({
-      map: {
-        [domain.name]: domain,
-      },
-    });
+    console.log('setDomainName:', domain);
+    // set({
+    //   map: {
+    //     [domain.name]: domain,
+    //   },
+    // });
   },
   setDomainNames: (domains) => {
     set({
-      order: domains.map((domain: Domain) => domain.name),
+      order: domains.map((domain: DomainShape) => domain.name),
       // map: domains.reduce((map: { [n: string]: Domain }, domain: Domain) => {
       //   map[domain.name] = domain;
       //   return map;
       // }, []),
     });
   },
-}));
+});
 
-export const setFetching = (fetching: boolean) =>
-  useDomains.getState().setFetching(fetching);
+// export const setFetching = (fetching: boolean) =>
+//   useDomains.getState().setFetching(fetching);
 
-export const setOffset = (offset: number) =>
-  useDomains.getState().setOffset(offset);
+// export const setOffset = (offset: number) =>
+//   useDomains.getState().setOffset(offset);
 
-export const resetDomains = () => useDomains.getState().resetDomains;
+// export const resetDomains = () => useDomains.getState().resetDomains;
 
-export const fetchDomainName = (name: string) =>
-  useDomains.getState().fetchDomainName(name);
+// export const fetchDomainName = (name: string) =>
+//   useDomains.getState().fetchDomainName(name);
 
-export const fetchDomainNames = () => useDomains.getState().fetchDomainNames;
+// export const fetchDomainNames = () => useDomains.getState().fetchDomainNames;
 
-export const setDomainName = (domain: Domain) =>
-  useDomains.getState().setDomainName(domain);
+// export const setDomainName = (domain: Domain) =>
+//   useDomains.getState().setDomainName(domain);
 
-export const setDomainNames = (domains: Domain[]) => {
-  useDomains.getState().setDomainNames(domains);
-};
+// export const setDomainNames = (domains: Domain[]) => {
+//   useDomains.getState().setDomainNames(domains);
+// };

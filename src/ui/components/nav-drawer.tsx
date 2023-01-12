@@ -7,10 +7,8 @@ import Toast from 'react-native-toast-message';
 
 import { useStore } from '@/store';
 import { Icon, Jazzicon } from '@/ui/components';
-import { Copy as CopyIcon, Plus } from '@/ui/icons';
+import { Copy as CopyIcon } from '@/ui/icons';
 import { theme } from '@/ui/theme';
-// import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
 import { ellipseAddress } from '@/utils/helpers';
 
 const stackNavItems = [
@@ -20,7 +18,7 @@ const stackNavItems = [
   },
   {
     label: 'Add new wallet',
-    icon: <Plus />,
+    icon: <Icon name="plus" size={16} color={theme.colors.muted} />,
   },
   {
     label: 'Lock wallet',
@@ -176,26 +174,50 @@ function WalletNav() {
     >
       {addresses.map((address, i) => {
         const multiAccount =
-          currentWallet === walletIDs[i] && !address.watchOnly;
+          currentWallet === walletIDs[i] &&
+          !address.watchOnly &&
+          address.accounts.length > 1;
         return (
           <View key={i}>
             <View key={i}>
               <Row
                 sx={{
                   alignItems: 'center',
+                  justifyContent: 'space-between',
                   px: 'gutter',
                   py: 'sm',
                 }}
               >
-                <Jazzicon />
-                <Pressable
-                  onPress={() => onSelectWallet(walletIDs[i])}
-                  sx={{
-                    pl: 'xs',
-                  }}
-                >
-                  <Text>{walletIDs[i]}</Text>
+                <Pressable onPress={() => onSelectWallet(walletIDs[i])}>
+                  <Row sx={{ alignItems: 'center' }}>
+                    <Jazzicon />
+                    <Text
+                      sx={{
+                        pl: 'xs',
+                      }}
+                    >
+                      {walletIDs[i]}
+                    </Text>
+                  </Row>
                 </Pressable>
+
+                {multiAccount && (
+                  <Pressable
+                    sx={{
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: 24,
+                      width: 24,
+                      bg: 'bg.900',
+                      borderRadius: 'sm',
+                      borderStyle: 'solid',
+                      borderColor: 'border.light',
+                      borderWidth: 1,
+                    }}
+                  >
+                    <Icon name="plus" size={16} color={theme.colors.muted} />
+                  </Pressable>
+                )}
               </Row>
             </View>
 

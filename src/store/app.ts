@@ -1,8 +1,5 @@
 import type { StateCreator } from 'zustand';
 
-import type { NodeSlice } from './node';
-import type { WalletSlice } from './wallet';
-
 export type AppSlice = {
   apiHost: string;
   apiKey: string;
@@ -14,12 +11,9 @@ export type AppSlice = {
   setApiKey: (apiKey: string) => void;
 };
 
-export const createAppSlice: StateCreator<
-  AppSlice & NodeSlice & WalletSlice,
-  [],
-  [],
-  AppSlice
-> = (set) => ({
+export const createAppSlice: StateCreator<AppSlice, [], [], AppSlice> = (
+  set
+) => ({
   apiHost: 'https://api.handshakeapi.com/hsd',
   apiKey: '',
   isSyncing: false,

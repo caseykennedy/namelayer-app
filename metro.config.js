@@ -19,8 +19,12 @@ module.exports = {
       },
       {
         ...require('node-libs-react-native'),
-        crypto: require.resolve('crypto-browserify'),
+        crypto: require.resolve('expo-standard-web-crypto'),
         stream: require.resolve('stream-browserify'),
+        dns: require.resolve('native-dns'),
+        dgram: require.resolve('react-native-udp'),
+        net: require.resolve('react-native-tcp'),
+        fs: require.resolve('react-native-fs'),
       }
     ),
   },
