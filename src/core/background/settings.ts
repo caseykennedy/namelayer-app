@@ -1,3 +1,4 @@
+import { GenericService } from '@/utils/svc';
 const bdb = require('bdb');
 const DB = require('bdb/lib/DB');
 import { get, put } from '@/utils/db';
@@ -10,19 +11,18 @@ const DEFAULT_HOST =
   process.env.DEFAULT_HOST || 'https://api.handshakeapi.com/hsd';
 const DEFAULT_API_KEY = process.env.DEFAULT_API_KEY || '';
 
-type SettingsServiceOptions = {
+declare interface SettingsService {
   apiHost: string;
   apiKey: string;
-};
+}
 
-export default class SettingsService {
-  apiHost: string;
-  apiKey: string;
+class SettingsService extends GenericService {
   store: typeof DB;
 
-  constructor(options: SettingsServiceOptions) {
-    this.apiHost = options.apiHost;
-    this.apiKey = options.apiKey;
+  constructor() {
+    super();
+    this.apiHost = '';
+    this.apiKey = '';
   }
 
   getAPI = async () => {
@@ -67,3 +67,5 @@ export default class SettingsService {
 
   async stop() {}
 }
+
+export default SettingsService;

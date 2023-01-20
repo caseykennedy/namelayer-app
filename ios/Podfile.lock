@@ -353,6 +353,8 @@ PODS:
   - React-jsinspector (0.70.5)
   - React-logger (0.70.5):
     - glog
+  - react-native-childprocess (0.1.4):
+    - React
   - react-native-get-random-values (1.8.0):
     - React-Core
   - react-native-mmkv (2.5.1):
@@ -364,6 +366,8 @@ PODS:
     - RCTTypeSafety
     - React-Core
     - ReactCommon/turbomodule/core
+  - react-native-sqlite-2 (3.6.2):
+    - React-Core
   - react-native-udp (2.7.0):
     - React
   - React-perflogger (0.70.5)
@@ -529,9 +533,11 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - react-native-childprocess (from `../node_modules/react-native-childprocess`)
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - react-native-mmkv (from `../node_modules/react-native-mmkv`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-sqlite-2 (from `../node_modules/react-native-sqlite-2`)
   - react-native-udp (from `../node_modules/react-native-udp`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -647,12 +653,16 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-childprocess:
+    :path: "../node_modules/react-native-childprocess"
   react-native-get-random-values:
     :path: "../node_modules/react-native-get-random-values"
   react-native-mmkv:
     :path: "../node_modules/react-native-mmkv"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-sqlite-2:
+    :path: "../node_modules/react-native-sqlite-2"
   react-native-udp:
     :path: "../node_modules/react-native-udp"
   React-perflogger:
@@ -746,9 +756,11 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 31564fa6912459921568e8b0e49024285a4d584b
   React-jsinspector: badd81696361249893a80477983e697aab3c1a34
   React-logger: fdda34dd285bdb0232e059b19d9606fa0ec3bb9c
+  react-native-childprocess: b9b26cb68e124ebcf1a91b95a3c61a7304aaf73f
   react-native-get-random-values: a6ea6a8a65dc93e96e24a11105b1a9c8cfe1d72a
   react-native-mmkv: 69b9c003f10afdd01addf7c6ee784ce42ee2eff3
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
+  react-native-sqlite-2: 21c4a9d439e92193a8712c68492731c014671b53
   react-native-udp: ff9d13e523f2b58e6bc5d4d32321ac60671b5dc9
   React-perflogger: e68d3795cf5d247a0379735cbac7309adf2fb931
   React-RCTActionSheet: 05452c3b281edb27850253db13ecd4c5a65bc247

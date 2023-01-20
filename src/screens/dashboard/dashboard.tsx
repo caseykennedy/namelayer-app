@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { Text, useDripsyTheme, View } from 'dripsy';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ScrollView } from 'react-native';
 
 import { useStore } from '@/store';
@@ -11,35 +11,16 @@ export function Dashboard() {
   const nav = useNavigation();
 
   const blockHeight = useStore.use.height();
-  // const apiHost = useStore.use.apiHost();
-  // const apiKey = useStore.use.apiKey();
-  // const setIsSyncing = useStore.use.setIsSyncing();
+  const testFn = useStore.use.testFn();
 
-  const putTest = useStore.use.testPut();
-
-  useEffect(() => {
-    putTest();
-  }, [putTest]);
-
-  // React.useEffect(() => {
-  //   const testFunc = async () => {
-  //     try {
-  //       const nodeClient = new NodeClient({ apiHost, apiKey });
-
-  //       console.log('nodeClient:::', nodeClient.store);
-  //     } catch (error) {
-  //       console.log('fetchLatestBlock', error);
-  //     }
-
-  //     // return {
-  //     //   hash,
-  //     //   height,
-  //     //   time,
-  //     // };
-  //   };
-
-  //   console.log('testFunc', testFunc());
-  // }, [apiHost, apiKey]);
+  async function getWalletClient() {
+    const testWalletReg = testFn();
+    try {
+      console.log('testWalletReg', testWalletReg);
+    } catch (error) {
+      console.log('error', error);
+    }
+  }
 
   return (
     // eslint-disable-next-line react-native/no-inline-styles
@@ -53,6 +34,10 @@ export function Dashboard() {
       >
         <Button variant="primary" onPress={() => nav.navigate('ConfirmTx')}>
           <Text>open confirm tx modal</Text>
+        </Button>
+
+        <Button variant="primary" onPress={getWalletClient}>
+          <Text>wallet client</Text>
         </Button>
       </View>
 

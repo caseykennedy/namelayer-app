@@ -12,17 +12,20 @@ import React, { Suspense, useEffect } from 'react';
 import FlashMessage from 'react-native-flash-message';
 import Toast from 'react-native-toast-message';
 
-import { APIProvider } from '@/api';
 import { hydrateAuth } from '@/core';
+import initServices from '@/core/background';
 import { RootNavigator } from '@/navigation';
 import { useStore } from '@/store';
 import { theme } from '@/ui/theme';
 import Fonts from '@/ui/theme/fonts';
 
+// crypto polyfill
 polyfillWebCrypto();
 
 hydrateAuth();
 SplashScreen.preventAutoHideAsync();
+
+initServices();
 
 const App = () => {
   const fetchLatestBlock = useStore.use.fetchLatestBlock();
@@ -30,18 +33,15 @@ const App = () => {
   useEffect(() => {
     fetchLatestBlock();
   }, [fetchLatestBlock]);
-
   return (
     <>
       <Fonts>
         <DripsyProvider theme={theme}>
           <BottomSheetModalProvider>
-            <APIProvider>
-              <Suspense>
-                <RootNavigator />
-                <FlashMessage position="top" />
-              </Suspense>
-            </APIProvider>
+            <Suspense>
+              <RootNavigator />
+              <FlashMessage position="top" />
+            </Suspense>
           </BottomSheetModalProvider>
         </DripsyProvider>
       </Fonts>

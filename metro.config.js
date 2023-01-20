@@ -25,6 +25,9 @@ module.exports = {
         dgram: require.resolve('react-native-udp'),
         net: require.resolve('react-native-tcp'),
         fs: require.resolve('react-native-fs'),
+        // 'node:fs': require.resolve('react-native-fs'),
+        child_process: require.resolve('react-native-childprocess'),
+        path: require.resolve('path-browserify'),
       }
     ),
   },

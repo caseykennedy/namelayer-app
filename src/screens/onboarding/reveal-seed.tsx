@@ -22,16 +22,16 @@ export function RevealSeed({ navigation, route }: ScreenProps) {
     setSeedphrase(seeds);
   }, []);
 
-  useEffect(() => {
-    (async function onRevealSeedphraseMount() {
-      try {
-        const mnemonic = await new Mnemonic({ bits: 256 }).getPhrase().trim();
-        setSeedphrase(mnemonic);
-      } catch (e) {
-        console.error(e);
-      }
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async function onRevealSeedphraseMount() {
+  //     try {
+  //       const mnemonic = await new Mnemonic({ bits: 256 }).getPhrase().trim();
+  //       setSeedphrase(mnemonic);
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //   })();
+  // }, []);
 
   const onContinue = useCallback(() => {
     navigation.navigate('ConfirmSeed', {

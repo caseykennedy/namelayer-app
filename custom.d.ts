@@ -13,5 +13,5 @@ declare module '*.gif' {
   export default content;
 }
 
-declare module 'bdb';
-declare module 'bdb/lib/db';
+declare module 'hsd';
+declare module 'hs-client';

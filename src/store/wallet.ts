@@ -1,3 +1,5 @@
+const Network = require('hsd/lib/protocol/network');
+import { WalletClient } from 'hs-client';
 import type { StateCreator } from 'zustand';
 
 import WalletService from '@/core/background/wallet';
@@ -46,6 +48,7 @@ export type WalletSlice = {
     unconfirmed: number;
     lockedUnconfirmed: number;
   };
+  testFn: () => void;
   createWallet: (options: CreateWalletShape) => void;
   lockWallet: () => void;
   unlockWallet: (password: string) => void;
@@ -118,6 +121,28 @@ export const createWalletSlice: StateCreator<
     // lockedUnconfirmed: 0,
     unconfirmed: 13684.03,
     lockedUnconfirmed: 197.02,
+  },
+
+  testFn: async () => {
+    const network = Network.get('regtest');
+    const walletOptions = {
+      port: network.walletPort,
+      apiKey: '',
+    };
+    const walletClient = new WalletClient(walletOptions);
+
+    // const options = {
+    //   passphrase: 'passphrase',
+    //   watchOnly: false,
+    // };
+    // try {
+    //   const result = await walletClient.createWallet('testReg', options);
+    //   return result;
+    // } catch (e) {
+    //   console.error(e);
+    // }
+
+    return walletClient;
   },
 
   createWallet: async (options) => {
