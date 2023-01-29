@@ -24,19 +24,11 @@ module.exports = {
     // Configuration for TypeScript files
     {
       files: ['**/*.ts', '**/*.tsx', '**/*.js'],
-      plugins: [
-        '@typescript-eslint',
-        'unused-imports',
-        'tailwindcss',
-        'simple-import-sort',
-      ],
-      extends: [
-        'plugin:tailwindcss/recommended',
-        '@react-native-community',
-        'plugin:prettier/recommended',
-      ],
+      plugins: ['@typescript-eslint', 'unused-imports', 'simple-import-sort'],
+      extends: ['@react-native-community', 'plugin:prettier/recommended'],
       parserOptions: {
-        project: './tsconfig.json',
+        project: './client/tsconfig.json',
+        requireConfigFile: false,
       },
       rules: {
         'prettier/prettier': [
@@ -51,18 +43,11 @@ module.exports = {
         '@typescript-eslint/comma-dangle': 'off', // Avoid conflict rule between Eslint and Prettier
         '@typescript-eslint/consistent-type-imports': 'error', // Ensure `import type` is used when it's necessary
         'import/prefer-default-export': 'off', // Named export is easier to refactor automatically
-        'tailwindcss/classnames-order': [
-          'warn',
-          {
-            officialSorting: true,
-          },
-        ], // Follow the same ordering as the official plugin `prettier-plugin-tailwindcss`
         'simple-import-sort/imports': 'error', // Import configuration for `eslint-plugin-simple-import-sort`
         'simple-import-sort/exports': 'error', // Export configuration for `eslint-plugin-simple-import-sort`
         '@typescript-eslint/no-unused-vars': 'off',
         'unused-imports/no-unused-imports': 'error',
         'unused-imports/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-        'tailwindcss/no-custom-classname': 'off',
       },
     },
     // Configuration for  translations files (i18next)

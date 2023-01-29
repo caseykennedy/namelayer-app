@@ -149,7 +149,7 @@ export const createWalletSlice: StateCreator<
     const { walletName, seedphrase, password, optIn } = options;
     if (!walletName) throw new Error('Wallet name cannot be empty.');
     if (!seedphrase) throw new Error('Invalid seedphrase.');
-    if (!password) throw new Error('Password cannot be empty.');
+    if (!password) throw new Error('Password  be empty.');
 
     const walletOptions = {
       id: walletName,

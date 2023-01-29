@@ -1,0 +1,5 @@
+#!/bin/bash
+      # Helper script for Gradle to call node on macOS in case it is not found
+      export PATH=$PATH:/var/folders/s6/dv62w8516rzb6f4bmxw7z_3w0000gn/T/yarn--1674861803331-0.821691284917546:/Users/caseykennedy/apps/namelayer/client/node_modules/nodejs-mobile-react-native/node_modules/.bin:/Users/caseykennedy/.config/yarn/link/node_modules/.bin:/Users/caseykennedy/.nvm/versions/node/v16.16.0/libexec/lib/node_modules/npm/bin/node-gyp-bin:/Users/caseykennedy/.nvm/versions/node/v16.16.0/lib/node_modules/npm/bin/node-gyp-bin:/Users/caseykennedy/.nvm/versions/node/v16.16.0/bin/node_modules/npm/bin/node-gyp-bin:/Users/caseykennedy/.nvm/versions/node/v16.16.0/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/caseykennedy/.nvm/versions/node/v16.16.0/bin
+      node $@
+    

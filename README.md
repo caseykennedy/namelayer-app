@@ -46,3 +46,21 @@ yarn android
 - [Forms](https://starter.obytes.com/docs/ui-and-theme/Forms)
 - [Data fetching](https://starter.obytes.com/docs/guides/data-fetching)
 - [Contribute to starter](https://starter.obytes.com/docs/contribute)
+
+## Express Server
+
+================================
+
+A simple base for fullstack Typescript projects with a shared completely typed
+api. Note that the server allows CORS from everywhere. This project is based on
+[Typescript-Node-Starter](https://github.com/Microsoft/TypeScript-Node-Starter)
+
+## Running backend
+
+    cd server; yarn; npm run watch
+
+## Development
+
+In order to add a new api endpoint, it must be added first in
+server/api/base.ts. After that, the compiler will throw errors until both
+server/controllers/routes.ts and client/src/App.tsx are updated accordingly.

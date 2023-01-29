@@ -8,14 +8,12 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { DripsyProvider } from 'dripsy';
 import * as SplashScreen from 'expo-splash-screen';
 import { polyfillWebCrypto } from 'expo-standard-web-crypto';
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import FlashMessage from 'react-native-flash-message';
 import Toast from 'react-native-toast-message';
 
 import { hydrateAuth } from '@/core';
-import initServices from '@/core/background';
 import { RootNavigator } from '@/navigation';
-import { useStore } from '@/store';
 import { theme } from '@/ui/theme';
 import Fonts from '@/ui/theme/fonts';
 
@@ -25,14 +23,7 @@ polyfillWebCrypto();
 hydrateAuth();
 SplashScreen.preventAutoHideAsync();
 
-initServices();
-
 const App = () => {
-  const fetchLatestBlock = useStore.use.fetchLatestBlock();
-
-  useEffect(() => {
-    fetchLatestBlock();
-  }, [fetchLatestBlock]);
   return (
     <>
       <Fonts>
