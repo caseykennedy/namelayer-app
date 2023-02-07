@@ -6,6 +6,62 @@ import { txTypes } from '@/constants/tx-types';
 import type { RootStackParamList } from '@/navigation/types';
 import { Button, Chevron, Input } from '@/ui';
 
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'CreateTx'>;
+
+export const CreateTx = ({ route, navigation }: ScreenProps) => {
+  const txType = route.params.type;
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: `${txType} HNS`,
+      // eslint-disable-next-line react/no-unstable-nested-components
+      headerLeft: () => <BackButton onPress={() => navigation.goBack()} />,
+      gestureEnabled: true,
+    });
+  });
+
+  switch (txType) {
+    case txTypes.SEND:
+      return (
+        <TxPanel>
+          <Send />
+        </TxPanel>
+      );
+    case txTypes.RECEIVE:
+      return (
+        <TxPanel>
+          <Send />
+        </TxPanel>
+      );
+    case txTypes.REVEAL:
+      return (
+        <TxPanel>
+          <Send />
+        </TxPanel>
+      );
+    case txTypes.REDEEM:
+      return (
+        <TxPanel>
+          <Send />
+        </TxPanel>
+      );
+    default:
+      return null;
+  }
+};
+
+type TxPanelProps = {
+  children: React.ReactNode;
+};
+
+const TxPanel = ({ children }: TxPanelProps) => {
+  return (
+    <View sx={{ backgroundColor: 'bg.600', flex: 1, p: 'gutter' }}>
+      {children}
+    </View>
+  );
+};
+
 const Send = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [recipient, setRecipient] = useState('');
@@ -87,60 +143,4 @@ const BackButton = ({ onPress }: BackButtonProps) => {
       />
     </Pressable>
   );
-};
-
-type TxPanelProps = {
-  children: React.ReactNode;
-};
-
-const TxPanel = ({ children }: TxPanelProps) => {
-  return (
-    <View sx={{ backgroundColor: 'bg.600', flex: 1, p: 'gutter' }}>
-      {children}
-    </View>
-  );
-};
-
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'CreateTx'>;
-
-export const CreateTx = ({ route, navigation }: ScreenProps) => {
-  const txType = route.params.type;
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerTitle: `${txType} HNS`,
-      // eslint-disable-next-line react/no-unstable-nested-components
-      headerLeft: () => <BackButton onPress={() => navigation.goBack()} />,
-      gestureEnabled: true,
-    });
-  });
-
-  switch (txType) {
-    case txTypes.SEND:
-      return (
-        <TxPanel>
-          <Send />
-        </TxPanel>
-      );
-    case txTypes.RECEIVE:
-      return (
-        <TxPanel>
-          <Send />
-        </TxPanel>
-      );
-    case txTypes.REVEAL:
-      return (
-        <TxPanel>
-          <Send />
-        </TxPanel>
-      );
-    case txTypes.REDEEM:
-      return (
-        <TxPanel>
-          <Send />
-        </TxPanel>
-      );
-    default:
-      return null;
-  }
 };

@@ -13,12 +13,12 @@ import { ellipseAddress } from '@/utils/helpers';
 
 const stackNavItems = [
   {
-    label: 'Settings',
-    icon: <Icon name="settings" size={18} color={theme.colors.muted} />,
-  },
-  {
     label: 'Add new wallet',
     icon: <Icon name="plus" size={16} color={theme.colors.muted} />,
+  },
+  {
+    label: 'Settings',
+    icon: <Icon name="settings" size={18} color={theme.colors.muted} />,
   },
   {
     label: 'Lock wallet',
@@ -215,7 +215,7 @@ function WalletNav() {
                       borderWidth: 1,
                     }}
                   >
-                    <Icon name="plus" size={16} color={theme.colors.muted} />
+                    <Icon name="plus" size={14} color={theme.colors.muted} />
                   </Pressable>
                 )}
               </Row>

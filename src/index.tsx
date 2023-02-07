@@ -23,22 +23,28 @@ polyfillWebCrypto();
 hydrateAuth();
 SplashScreen.preventAutoHideAsync();
 
-const App = () => {
-  return (
-    <>
-      <Fonts>
-        <DripsyProvider theme={theme}>
-          <BottomSheetModalProvider>
-            <Suspense>
-              <RootNavigator />
-              <FlashMessage position="top" />
-            </Suspense>
-          </BottomSheetModalProvider>
-        </DripsyProvider>
-      </Fonts>
-      <Toast />
-    </>
-  );
+const App = () => (
+  <Providers>
+    <RootNavigator />
+    <FlashMessage position="top" />
+  </Providers>
+);
+
+type ProviderProps = {
+  children: React.ReactNode;
 };
+
+const Providers = ({ children }: ProviderProps) => (
+  <>
+    <Fonts>
+      <DripsyProvider theme={theme}>
+        <BottomSheetModalProvider>
+          <Suspense>{children}</Suspense>
+        </BottomSheetModalProvider>
+      </DripsyProvider>
+    </Fonts>
+    <Toast />
+  </>
+);
 
 export default App;
